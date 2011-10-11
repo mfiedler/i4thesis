@@ -1,0 +1,58 @@
+\documentclass[germanthesis]{i4thesis}
+% options:
+% [germanthesis] - Thesis is written in German
+% [plainunnumbered] - Don't print numbers on plain pages
+% [earlydraft] - Settings for quick draft printouts
+% [watermark] - Print current time/date at bottom of each page
+% [phdthesis] - switch to PhD thesis style
+% [twoside] - double sided
+
+\author{Toller Student}
+\title{Über das Verhältnis zwischen Bachelorarbeit und resultierender Note}
+\thesistype{Bachelorarbeit im Fach Informatik}
+\thesiscite{Bachelor's Thesis~(Studienarbeit)}
+\birthday{1. Dezember 1985}
+\birthplace{Hier}
+\thesisstart{1. Mai 2011}
+\advisors{Wosch}
+
+\begin{document}
+
+\pagenumbering{roman}
+
+\maketitle
+
+\input{abstract}
+\acresetall
+
+\cleardoublepage
+\tableofcontents
+
+\cleardoublepage
+\pagenumbering{arabic}
+
+\input{introduction}
+
+\input{fundamentals}
+
+\input{architecture}
+
+\input{analysis}
+
+\input{conclusion}
+
+\cleardoublepage
+
+\input{glossary}
+\clearpage
+
+\listoffigures
+\clearpage
+
+\listoftables
+\clearpage
+
+\bibliographystyle{IEEEtran}
+\bibliography{references}
+
+\end{document}
