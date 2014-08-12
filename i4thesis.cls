@@ -57,10 +57,10 @@
 % This class is based on report
 \ifthenelse{\boolean{oneside}}{
 \LoadClass[a4paper,10pt,onecolumn,oneside,openright]{report}
-\RequirePackage[a4paper,textwidth=345pt,textheight=598pt,bindingoffset=0cm,marginparwidth=3cm,hmarginratio=1:1,vmarginratio=1:1]{geometry}
+\RequirePackage[a4paper,textwidth=410pt,textheight=598pt,bindingoffset=0cm,marginparwidth=3cm,hmarginratio=1:1,vmarginratio=1:1]{geometry}
 }{
 \LoadClass[a4paper,10pt,onecolumn,twoside,openright]{report}
-\RequirePackage[a4paper,textwidth=345pt,textheight=598pt,bindingoffset=0cm,marginparwidth=3cm,hmarginratio=1:1,vmarginratio=1:1]{geometry}
+\RequirePackage[a4paper,textwidth=410pt,textheight=598pt,bindingoffset=0cm,marginparwidth=3cm,hmarginratio=1:1,vmarginratio=1:1]{geometry}
 }
 
 % 150 percent line spacing
@@ -137,7 +137,8 @@
 
 % The "SI" and "num" commands for typesetting units
 %\RequirePackage[sepfour=true,tophrase=\dots,per=slash,obeyall]{siunitx}
-\RequirePackage[range-phrase={\dots\,},per-mode=symbol,detect-all,load-configurations=binary,forbid-literal-units]{siunitx}
+%\RequirePackage[range-phrase={\dots\,},per-mode=symbol,detect-all,load-configurations=binary,forbid-literal-units]{siunitx}
+\RequirePackage[range-phrase={\dots\,},per-mode=symbol,detect-all,binary-units]{siunitx}
 \DeclareSIUnit\byte{Byte}
 \DeclareSIUnit\decibelm{dBm}
 \DeclareSIUnit\mph{mph}
@@ -242,7 +243,7 @@
 \RequirePackage[l2tabu, orthodox]{nag}
 
 % Define command that will return current filename
-\RequirePackage{fink}
+%\RequirePackage{fink}
 
 % Do not reset footnote counter on new chapter
 \RequirePackage[]{chngcntr}
@@ -431,12 +432,12 @@
 % Visible TODO and FIXME markers
 % -----------------------------------------------------------------------------
 \ifthenelse{\boolean{germanthesis}}{
-	\RequirePackage[colorinlistoftodos, textwidth=3.75cm, shadow, ngerman]{todonotes}
+	\RequirePackage[colorinlistoftodos, textwidth=2.8cm, shadow, ngerman]{todonotes}
 	\makeatletter
 	\@todonotes@SetTodoListName{Offene Punkte}
 	\makeatother
 }{
-	\RequirePackage[colorinlistoftodos, textwidth=3.75cm, shadow]{todonotes}
+	\RequirePackage[colorinlistoftodos, textwidth=3.0cm, shadow]{todonotes}
 }
 \newcounter{TODOCOUNT}
 \newcommand{\TODO}[1]{\vspace{0.5em}\todo[inline, color=orange]{#1}\stepcounter{TODOCOUNT}}
@@ -479,7 +480,7 @@
 }{%
 \begin{otherlanguage*}{american}%
 	Please cite as:\\%
-	\nohyphens{\theauthor, ``\thetitle,'' \thethesiscite, University of Erlangen, Dept. of Computer Science, \monthname~\the\year.}%
+	\nohyphens{\theauthor, ``\thetitle,'' \thethesiscite, Friedrich--Alexander University Erlangen--Nuremberg, Dept. of Computer Science, \monthname~\the\year.}%
 \end{otherlanguage*}
 }{%
 	Friedrich-Alexander-Universität Erlangen-Nürnberg\\%
@@ -599,14 +600,15 @@ Friedrich-Alexander-Universität Erlangen-Nürnberg\\[0.2\baselineskip]
 }
 }~\\[1\baselineskip]
 
-\begin{tabular}{>{\raggedleft}p{5cm}p{6cm}}
-Betreuer:	& \textbf{\theadvisors}\\
-Betreuender Hochschullehrer: & \textbf{Prof. Dr.-Ing. Wolfgang Schröder-Preikschat}\\
+\begin{tabular}{>{\raggedleft}p{6cm}p{9cm}}
+Betreuer:	\theadvisors
+	\\
+Betreuender Hochschullehrer: & \textbf{Prof.~Dr.-Ing.~habil.~Wolfgang~Schröder-Preikschat}\\
 
 ~ & ~\\
 
 Beginn der Arbeit: & \textbf{\thethesisstart}\\
-Abgabe der Arbeit: & \textbf{\thedate}\\
+Abgabe der Arbeit: & \textbf{\thethesisend}\\
 \end{tabular}
 
 \end{center}
@@ -615,6 +617,8 @@ Abgabe der Arbeit: & \textbf{\thedate}\\
 }
 \end{singlespace}
 
+\thispagestyle{empty}
+\mbox{}\clearpage
 %
 % The delaration comes here
 %
@@ -628,8 +632,7 @@ Abgabe der Arbeit: & \textbf{\thedate}\\
 Erklärung \newline}
 
 \noindent%
-Ich versichere, dass ich die Arbeit ohne fremde Hilfe und ohne Benutzung anderer als der angegebenen Quellen angefertigt habe und dass die Arbeit in gleicher oder ähnlicher Form noch keiner anderen Prüfungsbehörde vorgelegen hat und von dieser als Teil einer Prüfungsleistung angenommen wurde.\\
-Alle Ausführungen, die wörtlich oder sinngemäß übernommen wurden, sind als solche gekennzeichnet.
+Ich versichere, dass ich die Arbeit ohne fremde Hilfe und ohne Benutzung anderer als der angegebenen Quellen angefertigt habe und dass die Arbeit in gleicher oder ähnlicher Form noch keiner anderen Prüfungsbehörde vorgelegen hat und von dieser als Teil einer Prüfungsleistung angenommen wurde. Alle Ausführungen, die wörtlich oder sinngemäß übernommen wurden, sind als solche gekennzeichnet.
 \end{otherlanguage*}
 
 
