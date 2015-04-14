@@ -42,6 +42,12 @@
 \setboolean{phdthesis}{false}
 \DeclareOption{phdthesis}{\setboolean{phdthesis}{true}}
 
+% [modernchapter] - switch to PhD thesis style
+\newboolean{modernchapter}
+\setboolean{modernchapter}{false}
+\DeclareOption{modernchapter}{\setboolean{modernchapter}{true}}
+
+
 % [twoside] - double sided
 \newboolean{oneside}
 \setboolean{oneside}{true}
@@ -331,7 +337,27 @@
 \let\subsubsubsubsection\mysubparagraph
 
 % heading styles
-\titleformat{\chapter}[display]{\myheadingfont\huge\bfseries\titlerule\vspace{0.25cm}}{\LARGE\chaptertitlename~\thechapter}{1em}{}[\vspace{0.25cm}\titlerule]
+\ifthenelse{\boolean{modernchapter}}{%
+  \RequirePackage{calc}
+  \RequirePackage{textcase}
+  \newlength{\@chapterwidth}
+  \newfont{\chapterNumber}{eurb10 scaled 9000}
+
+  \DeclareRobustCommand{\spacedallcaps}[1]{\textls[160]{\MakeTextUppercase{#1}}}
+
+  \titleformat{\chapter}[display]%
+  {\relax}% Format
+  {\mbox{}\marginpar{\color{gray}\chapterNumber%
+      \setlength{\@chapterwidth}{\widthof{\thechapter}}%
+      \vspace{-20pt}\hspace{-1.2\@chapterwidth}%
+    \thechapter
+  }}%Label
+  {0pt}% Seperator
+  {\vspace*{.9\baselineskip}\raggedright\huge\bfseries\spacedallcaps} %BeforeCode
+  [\normalsize\titlerule]% AfterCode
+}{
+ \titleformat{\chapter}[display]{\myheadingfont\huge\bfseries\titlerule\vspace{0.25cm}}{\LARGE\chaptertitlename~\thechapter}{1em}{}[\vspace{0.25cm}\titlerule]
+}
 \titleformat{\section}{\myheadingfont\Large\bfseries}{\thesection}{1em}{}
 \titleformat{\subsection}{\myheadingfont\large\bfseries}{\thesubsection}{1em}{}
 \titleformat{\subsubsection}{\myheadingfont\normalsize\bfseries}{\thesubsubsection}{1em}{}
