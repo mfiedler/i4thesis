@@ -124,16 +124,24 @@
 \RequirePackage{float}
 
 % Cross-references are clickable
-\RequirePackage[pdftex,bookmarks=true,bookmarksnumbered=true,colorlinks=false,pdfdisplaydoctitle=true,breaklinks=true]{hyperref}
+\RequirePackage[pdftex,
+                bookmarks=true,
+                bookmarksnumbered=true,
+                colorlinks=false,
+                pdfdisplaydoctitle=true,
+                breaklinks=true]{hyperref}
+% Link to beginning of floats
+\RequirePackage{hypcap}
 
 % Captions
 \RequirePackage[font=small, labelfont=bf, labelsep=endash, margin=1cm]{caption}
 
 % Subfigures
-\RequirePackage[margin=0cm]{subfig}
+\RequirePackage{subcaption}
 
 % Citations
-\RequirePackage{cite}
+\RequirePackage[backend=bibtex]{biblatex}
+\defbibheading{bibliography}[\refname]{\chapter*{#1}}
 
 % The "SI" and "num" commands for typesetting units
 %\RequirePackage[sepfour=true,tophrase=\dots,per=slash,obeyall]{siunitx}
@@ -205,8 +213,10 @@
 \ifthenelse{\boolean{germanthesis}}{
 	\newcommand{\thedate}{\today}
 	\newcommand{\glossarytitlename}{Abkürzungsverzeichnis}
+    \newcommand{\listoftitlename}{Verzeichnisse}
 }{
 	\newcommand{\thedate}{\selectlanguage{ngerman}\today\selectlanguage{american}}
+    \newcommand{\listoftitlename}{Lists}
 	\newcommand{\glossarytitlename}{List of Acronyms}
 }
 
@@ -366,10 +376,13 @@
 % -----------------------------------------------------------------------------
 % Listings
 % -----------------------------------------------------------------------------
+\RequirePackage{listing} % For \listoflistings
 \RequirePackage[savemem]{listings}
 \ifthenelse{\boolean{germanthesis}}{
+    \gdef\listlistingname{Listingverzeichnis}
 	\renewcommand{\lstlistlistingname}{Listingverzeichnis}
 }{
+    \gdef\listlistingname{List of Listings}
 	\renewcommand{\lstlistlistingname}{List of Listings}
 }
 \lstset{

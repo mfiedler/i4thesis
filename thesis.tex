@@ -7,6 +7,8 @@
 % [phdthesis] - switch to PhD thesis style
 % [twoside] - double sided
 
+\bibliography{references}
+
 \author{Toller Student}
 \title{Über das Verhältnis zwischen Bachelorarbeit und resultierender Note}
 \thesistype{Bachelorarbeit im Fach Informatik}
@@ -45,16 +47,32 @@
 
 \cleardoublepage
 
+% \phantomsection is needed for hyperref to reference the correct
+% page.
+
+\phantomsection
+\addcontentsline{toc}{chapter}{\listoftitlename}%
+\addcontentsline{toc}{section}{\glossarytitlename}%
 \input{glossary}
 \clearpage
 
+\phantomsection
+\addcontentsline{toc}{section}{\listfigurename}%
 \listoffigures
 \clearpage
 
+\phantomsection
+\addcontentsline{toc}{section}{\listtablename}%
 \listoftables
 \clearpage
 
-\bibliographystyle{IEEEtran}
-\bibliography{references}
+\phantomsection
+\addcontentsline{toc}{section}{\listlistingname}%
+\listoflistings
+\clearpage
+
+\phantomsection
+\addcontentsline{toc}{section}{\bibname}%
+\printbibliography 
 
 \end{document}
