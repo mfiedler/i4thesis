@@ -173,6 +173,19 @@ To further evaluate the applicability of our definition, we analyzed sensor netw
 
 Acronyms shoud be explained when first used. Latex helps, e.g.\ \acp{MANET} have been frequently used as examples for the development of \ac{WSN} applications.
 
+\subsection{References to Data}
+
+With dataref, \LaTeX{}
+provides a package to annotate data symbolicly within the text. The
+data is declared in \verb|data.tex| and can be used with the
+\verb|\dref| macro and its compansions. See the dataref documentation
+for further examples.
+
+\begin{quote}
+  We concluded \dref{/experiment 1/base}
+  experiments. \drefrel[prefix=/experiment 1,base=/base,factor,percent]{/a} percent of all experiments
+  were successful.
+\end{quote}
 
 \subsection{TODOs and FIXMEs}
 
