@@ -53,6 +53,12 @@
 \setboolean{oneside}{true}
 \DeclareOption{twoside}{\setboolean{oneside}{false}}
 
+% [privacy] - Generate a more privacy aware pdf
+\newboolean{privacy}
+\setboolean{privacy}{false}
+\DeclareOption{privacy}{\setboolean{privacy}{true}}
+
+
 \ProcessOptions \relax
 % -----------------------------------------------------------------------------
 
@@ -179,8 +185,10 @@
 \let\show\myoldshow\renewcommand{\myoldshow}{}  % re-enable \show command
 \ifthenelse{\boolean{germanthesis}}{
 	\RequirePackage[american,ngerman]{babel}
+    \def\cvtitle{Lebenslauf}
 }{
 	\RequirePackage[ngerman,american]{babel}
+    \def\cvtitle{Curriculum Vitae}
 }
 
 % % Don't indent paragraphs in german theses. Instead, leave blank space between paragraphs.
@@ -341,13 +349,12 @@
   \RequirePackage{calc}
   \RequirePackage{textcase}
   \newlength{\@chapterwidth}
-  \newfont{\chapterNumber}{eurb10 scaled 9000}
 
   \DeclareRobustCommand{\spacedallcaps}[1]{\textls[160]{\MakeTextUppercase{#1}}}
 
   \titleformat{\chapter}[display]%
   {\relax}% Format
-  {\mbox{}\marginpar{\color{gray}\chapterNumber%
+  {\mbox{}\marginpar{\color{gray}\fontsize{96pt}{96pt}\selectfont%
       \setlength{\@chapterwidth}{\widthof{\thechapter}}%
       \vspace{-20pt}\hspace{-1.2\@chapterwidth}%
     \thechapter
@@ -627,8 +634,10 @@ vorgelegt von\\[2\baselineskip]
 
 \textbf{\theauthor}\\[1\baselineskip]
 
+\ifthenelse{\boolean{privacy}}{}{%
 geb. am \thebirthday\\
 in \thebirthplace\\[2\baselineskip]
+}
 
 angefertigt am\\[2\baselineskip]
 

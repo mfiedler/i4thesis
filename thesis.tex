@@ -7,6 +7,7 @@
 % [phdthesis] - switch to PhD thesis style
 % [modernchapter] - modern chapter headings
 % [twoside] - double sided
+% [privacy] - Generate a more privacy aware PDF
 
 \usepackage{dataref}
 \input{data}
@@ -78,5 +79,9 @@
 \phantomsection
 \addcontentsline{toc}{section}{\bibname}%
 \printbibliography 
+
+\ifthenelse{\boolean{privacy}}{}{% Only if privacy is disabled
+  \input{99-cv}
+}
 
 \end{document}
