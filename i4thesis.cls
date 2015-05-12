@@ -42,10 +42,16 @@
 \setboolean{phdthesis}{false}
 \DeclareOption{phdthesis}{\setboolean{phdthesis}{true}}
 
-% [modernchapter] - switch to PhD thesis style
+% [modernchapter] - modern chapter marks
 \newboolean{modernchapter}
 \setboolean{modernchapter}{false}
 \DeclareOption{modernchapter}{\setboolean{modernchapter}{true}}
+
+% [moderntitle] - modern title page
+\newboolean{moderntitle}
+\setboolean{moderntitle}{false}
+\DeclareOption{moderntitle}{\setboolean{moderntitle}{true}}
+
 
 
 % [twoside] - double sided
@@ -111,6 +117,7 @@
 \RequirePackage{fixltx2e}
 \ifthenelse{\boolean{earlydraft}}{
 	\newcommand{\mydisableprotrusion}{}
+    \newcommand{\textls}[2][]{#2}
 }{
 	\RequirePackage[babel,protrusion=true,expansion=true,tracking=false,kerning=true,spacing=true]{microtype}
 	\newcommand{\mydisableprotrusion}{\microtypesetup{protrusion=false}}
@@ -152,7 +159,7 @@
 \RequirePackage{subcaption}
 
 % Citations
-\RequirePackage[backend=bibtex]{biblatex}
+\RequirePackage[backend=bibtex,style=alphabetic]{biblatex}
 \defbibheading{bibliography}[\refname]{\chapter*{#1}}
 
 % The "SI" and "num" commands for typesetting units
@@ -255,7 +262,13 @@
 
 % TeX ist kein Zeichenprogramm
 \RequirePackage{tikz}[2010/10/13]
-\usetikzlibrary{}
+\usetikzlibrary{patterns}
+
+% Sans Serif Font for tikzpictures
+\tikzset{every picture/.append style={font=\sffamily}}
+
+% This removes the auto anchor feature, when an explicit anchor is given
+\tikzset{anchor/.append code={\let\tikz@auto@anchor\relax\let\tikz@compute@direction\pgfutil@gobble}}
 
 % Ensure that no floats are typeset before they are referenced
 \RequirePackage{flafter}
@@ -267,7 +280,9 @@
 \RequirePackage[l2tabu, orthodox]{nag}
 
 % Define command that will return current filename
-%\RequirePackage{fink}
+\ifthenelse{\boolean{watermark}}{
+  \RequirePackage{currfile}
+}{}
 
 % Do not reset footnote counter on new chapter
 \RequirePackage[]{chngcntr}
@@ -277,7 +292,7 @@
 \newcommand{\thewatermark}{\ifthenelse{\boolean{watermark}}{%
 	\begin{tikzpicture}[remember picture, overlay]
 		\node[anchor=south, outer sep=3.75cm] at (current page.south) {
-			\color{gray}\finkfile\quad\timestamp
+			\color{gray}\currfilename\quad\timestamp
 		};
 	\end{tikzpicture}%
 }{}}
@@ -412,8 +427,8 @@
 \RequirePackage{listing} % For \listoflistings
 \RequirePackage[savemem]{listings}
 \ifthenelse{\boolean{germanthesis}}{
-    \gdef\listlistingname{Listingverzeichnis}
-	\renewcommand{\lstlistlistingname}{Listingverzeichnis}
+    \gdef\listlistingname{Quellcodeverzeichnis}
+	\renewcommand{\lstlistlistingname}{Quellcodeverzeichnis}
 }{
     \gdef\listlistingname{List of Listings}
 	\renewcommand{\lstlistlistingname}{List of Listings}
@@ -513,36 +528,7 @@
 \pagenumbering{alph}
 
 % Output cover page
-\makecoverpage{%
-	%Department Informatik
-	Lehrstuhl für Informatik 4%
-}{%
-	Verteilte Systeme und Betriebssysteme%
-}{%
-	\coverpagetextsmall{\nohyphens{\theauthor}}%
-	\coverpagetextlarge{\nohyphens{\thetitle}}%
-	\coverpagetextsmall{\thethesistype}%
-	\coverpagetextsmall{\thedate}%
-}{%
-\begin{otherlanguage*}{american}%
-	Please cite as:\\%
-	\nohyphens{\theauthor, ``\thetitle,'' \thethesiscite, Friedrich--Alexander University Erlangen--Nuremberg, Dept. of Computer Science, \monthname~\the\year.}%
-\end{otherlanguage*}
-}{%
-	Friedrich-Alexander-Universität Erlangen-Nürnberg\\%
-	Department Informatik\\%
-	Verteilte Systeme und Betriebssysteme\\%
-	\vspace{0.5em}%
-	Martensstr. 1 $\cdot$ 91058 Erlangen $\cdot$ Germany%
-}{%
-	\href{http://www4.cs.fau.de}{www4.cs.fau.de}%
-}{%
-	\includegraphics{i4/logo-tf}%
-}{%
-	\includegraphics{i4/logo-fau}%
-}{%
-	\includegraphics[width=0.25\textwidth]{i4/logo-i4}%
-}
+\makecoverpage
 
 % Title pages use single line spacing, no parindent and no parskips
 \begin{singlespace}
@@ -606,10 +592,10 @@ der Technischen Fakultät der\\
 Universität Erlangen-Nürnberg\\[2\baselineskip]
 
 \begin{tabular}{>{\raggedleft}p{5cm}p{7cm}}
-Tag der Einreichung: & \textbf{\thethesisstart}\\
-Tag der Promotion: & \textbf{\thethesisend}\\
-Dekan: & \textbf{\thedean}\\
-Berichterstatter: & \textbf{\theadvisors}\\
+Tag der Einreichung: & \textbf{\thethesisstart} \\
+Tag der Promotion:   & \textbf{\thethesisend}   \\
+Dekan:               & \textbf{\thedean}        \\
+Berichterstatter:    \theadvisors            
 \end{tabular}
 \end{onehalfspacing}
 

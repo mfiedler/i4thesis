@@ -195,3 +195,30 @@ This will also trigger generation of a list-of-TODOs at the end of the document.
 The same goes for the \verb|\FIXME|\FIXME{This is what a FIXME looks like} command.
 
 
+\subsection{TikZ}
+
+\begin{quote}
+  TikZ ist kein Zeichenprogramm
+\end{quote}
+
+\begin{figure}[h]\centering
+\begin{tikzpicture}
+  \node[transform shape,scale=10,inner sep=0] (left) {A};
+
+  \node[transform shape,scale=10, % Scale the whole node
+        right=3 of left,          % Placement of the node
+        draw,                     % Draw a border
+        rounded corners,          % Give it some rounded corners
+        pattern=bricks,pattern color=red!50,          % Best pattern available!
+        label={[rotate=90,anchor=west]north:LABEL},   % Each label is a node
+        pin=135:Pinning to something]                 % Pins are similar to labels
+     (right) % Name of Node
+     {B};    % Text within Node
+  
+  \draw[->] (left) -- (right); 
+
+  \draw[->,ultra thick] (left.east) to[out=20,in=200] (right.base west); 
+
+\end{tikzpicture}
+\caption{This is a useful caption for a very useful TikZ picture}
+\end{figure}

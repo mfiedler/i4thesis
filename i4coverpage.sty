@@ -22,6 +22,11 @@
 \setboolean{@isevencoverpage@earlydraft}{false}
 \DeclareOption{earlydraft}{\setboolean{@isevencoverpage@earlydraft}{true}}
 
+\newboolean{@isevencoverpage@moderntitle}
+\setboolean{@isevencoverpage@moderntitle}{false}
+\DeclareOption{moderntitle}{\setboolean{@isevencoverpage@moderntitle}{true}}
+\newcommand{\usemoderntitle}[1][true]{\setboolean{@isevencoverpage@moderntitle}{#1}}
+
 \ProcessOptions \relax
 % -----------------------------------------------------------------------------
 
@@ -35,7 +40,9 @@
 
 % For cover page
 \RequirePackage{tikz}
-\tikzoption{text @isevencoverpage@ badly raggedleft}[]{\def\tikz@text@action{\raggedleft\relax}}
+\tikzoption{text @isevencoverpage@ badly  raggedleft}[]{\def\tikz@text@action{\raggedleft\relax}}
+\usetikzlibrary{calc,fit}
+
 % -----------------------------------------------------------------------------
 
 
@@ -57,8 +64,225 @@
 	\vspace{0.5cm}\\%
 }
 
-%\makecoverpage{title}{subtitle}{textbody}{citeas}{address}{url}{logo-tf}{logo-fau}{watermark}
-\newcommand{\makecoverpage}[9]{%
+%\makecoverpage
+\newcommand{\makecoverpage}{%
+  \ifthenelse{\boolean{@isevencoverpage@moderntitle}}{%
+    \makecoverpage@modern{
+		Lehrstuhl für Informatik 4 $\cdot$ Verteilte Systeme und Betriebssysteme
+	}{%
+		\theauthor%
+	}{%
+		\thetitle%
+	}{%
+		\thethesistype\\[3ex]%
+        \thedate
+	}{%
+			Please cite as:\\%
+			\nohyphens{\theauthor{}, \enquote{\thetitle} \thethesiscite, University of Erlangen, Dept.\ of Computer
+			Science, \monthname~\the\year.}
+	}{%
+			Friedrich-Alexander-Universität Erlangen-Nürnberg\\%
+			Department Informatik\\%
+			Verteilte Systeme und Betriebssysteme\\%
+			\vspace{.5em}%
+			Martensstr. 1 $\cdot$ 91058 Erlangen $\cdot$ Germany%
+	}{%
+      \href{http://www4.cs.fau.de}{www4.cs.fau.de}%
+	}{%
+		\includegraphics[width=76.4mm]{i4/logo-tf-neu}%
+	}{%
+		\includegraphics{i4/watermark-inf.pdf}%
+	}
+  }{%
+    \makecoverpage@old{%
+      % Department Informatik
+      Lehrstuhl für Informatik 4%
+    }{%
+      Verteilte Systeme und Betriebssysteme%
+    }{%
+      \coverpagetextsmall{\nohyphens{\theauthor}}%
+      \coverpagetextlarge{\nohyphens{\thetitle}}%
+      \coverpagetextsmall{\thethesistype}%
+      \coverpagetextsmall{\thedate}%
+    }{%
+      \begin{otherlanguage*}{american}%
+        Please cite as:\\%
+        \nohyphens{\theauthor, ``\thetitle,'' \thethesiscite, Friedrich--Alexander University Erlangen--Nuremberg, Dept. of Computer Science, \monthname~\the\year.}%
+      \end{otherlanguage*}
+    }{%
+      Friedrich-Alexander-Universität Erlangen-Nürnberg\\%
+      Department Informatik\\%
+      Verteilte Systeme und Betriebssysteme\\%
+      \vspace{0.5em}%
+      Martensstr. 1 $\cdot$ 91058 Erlangen $\cdot$ Germany%
+    }{%
+      \href{http://www4.cs.fau.de}{www4.cs.fau.de}%
+    }{%
+      \includegraphics{i4/logo-tf}%
+    }{%
+      \includegraphics{i4/logo-fau}%
+    }{%
+      \includegraphics[width=0.25\textwidth]{i4/logo-i4}%
+    }%
+  }
+}
+
+\newcommand{\makecoverpage@modern}[9]{%
+% Cover page uses single line spacing
+
+\begingroup
+\pagestyle{empty}
+\setcounter{page}\@ne
+
+\def\@isevencoverpage@affiliationsize{\fontsize{12}{14}\selectfont}
+\def\@isevencoverpage@authorsize{\fontsize{14}{17}\selectfont}
+\def\@isevencoverpage@titlesize{\fontsize{20}{24}\selectfont}
+\def\@isevencoverpage@subtitlesize{\fontsize{14}{17}\selectfont}
+\def\@isevencoverpage@citeassize{\fontsize{8}{9}\selectfont}
+\def\@isevencoverpage@addresssize{\fontsize{8}{9}\selectfont}
+\def\@isevencoverpage@smalltextsize{\@setfontsize{\@isevencoverpage@smalltextsize}{14}{17pt}}
+\def\@isevencoverpage@largetextsize{\@setfontsize{\@isevencoverpage@largetextsize}{20}{24pt}}
+
+
+\pgfdeclarelayer{i4coverback}
+\pgfdeclarelayer{i4coverfront}
+\pgfsetlayers{i4coverback,main,i4coverfront}
+\begin{tikzpicture}[remember picture,overlay] \node[xshift=0cm,yshift=0cm] at (current page.south west) { \begin{tikzpicture}[remember picture, overlay]
+	\definecolor{fau}{cmyk}{1,.5,0,.5}
+	\definecolor{tf}{cmyk}{.1,0,0,.4}
+	\definecolor{inf}{HTML}{6399AB}
+
+	% Aus dem Corporate Design Manual für TechFak auf A4:
+	% DIN A4 (210 x 297 mm)
+	% Stand X         112,00 mm
+	% Stand Y          10,00 mm
+	% Logo-Raum        56,20 mm
+	% Logobreite       76,40 mm
+	% Logohöhe         24,00 mm
+	% URL-Raum         16,00 mm
+	% Absender-Raum    10,00 mm
+	% Linienstärke      0,70 mm
+	\providecommand{\pageHeight}{297mm}
+	\providecommand{\pageWidth}{210mm}
+	\providecommand{\standX}{112.00mm}
+	\providecommand{\standY}{10.00mm}
+	\providecommand{\logoRaum}{56.20mm}
+	\providecommand{\logoW}{76.40mm}
+	\providecommand{\logoH}{24.00mm}
+	\providecommand{\urlH}{16.00mm}
+	\providecommand{\absenderRaum}{10.00mm}
+	\providecommand{\lineW}{0.70mm}
+	\providecommand{\textMargin}{2.5mm}
+	\providecommand{\textSpacing}{3.5mm}
+
+	%%% Fakultätslogo
+	% Nach links Stand X, nach oben Stand Y. Unser Referenzpunkt ist links
+	% unten auf der Seite und wir spezifizieren den oberen linken Punkt des
+	% Logos.
+	\pgftext[top,left,at={\pgfpoint{\standX}{\pageHeight - \standY}}] {%
+		#8%
+	}
+
+
+	% Affiliation
+	\node[anchor=north west]
+		(affiliationtext) at (\absenderRaum + \textMargin, \pageHeight - \logoRaum - \textMargin)
+		[align = left, font=\sffamily\color{white}\@isevencoverpage@affiliationsize] {#1};
+
+	% Titel
+	\node[anchor = south west]
+		(titletext) at (\absenderRaum + \textMargin, \pageHeight - 2 * \logoRaum + \textMargin)
+		[text width = \pageWidth - \absenderRaum - 5 * \textMargin,
+		font = \sffamily\bfseries\color{white}\@isevencoverpage@titlesize] {\nohyphens{#3}};
+
+	% Autor
+	\path (titletext.north west) ++ (0, \textSpacing)
+		node[anchor = south west,
+			align = left,
+			font=\sffamily\bfseries\color{white}\@isevencoverpage@authorsize] (authortext) {\nohyphens{#2}};
+
+	% Untertiteltext
+	\node[anchor = north west] 
+		(subtitletext) at (\absenderRaum + \textMargin, \pageHeight - 2 * \logoRaum - \textMargin)
+		[align = left, font = \sffamily\color{white}\@isevencoverpage@subtitlesize] {#4};
+
+	% Zitierhinweis
+	\node[anchor = south west]
+		at (\absenderRaum + \textMargin, \pageHeight - 3 * \logoRaum + \textMargin)
+		[align = left,
+		font = \sffamily\color{white}\@isevencoverpage@citeassize,
+		text width = 0.5 * (\pageWidth - \absenderRaum) - \textMargin] {#5};
+
+	% URL
+	\node[anchor = north west]
+		(url) at (\absenderRaum + \textMargin, \urlH - \textMargin)
+		[font = \sffamily\@isevencoverpage@addresssize] {#7};
+
+	% Lehrstuhllogo
+	\node[anchor = east, scale=1.5]
+		(chairlogo) at (\pageWidth - 5 * \textMargin, \pageHeight - 4.5 * \logoRaum) {
+			\begin{tikzpicture}
+				\foreach \x in {45, 135, 225, 315}
+					\draw[black!18, fill=black!18] (\x:1cm) rectangle (\x:0.1cm);
+				\draw[red!75!black, line width=0.15cm] (0,0) circle (0.45cm);
+				\draw[fill=black!18, black!18] (110:0.3cm) -- (110:0.7cm) -- (160:0.7cm);
+				\draw[fill=red!75!black, line width=0cm, red!75!black] (163:0.64cm) -- (122.5:0.5cm) -- (173.5:0.25cm) -- (160:0.44);
+			\end{tikzpicture}
+		};
+
+	\coordinate (logorand) at (\pageWidth, \pageHeight - 4.5 * \logoRaum);
+
+	% Adresse
+	\path (chairlogo.west) ++ (-2 * \textMargin, 0)
+		node[anchor = east,
+			align = right,
+			text width = 75mm,
+			font = \sffamily\color{black}\@isevencoverpage@addresssize] (chairlogotext) {#6};
+
+	\begin{pgfonlayer}{i4coverback}
+		\fill[fau]  (0, \pageHeight - \logoRaum) rectangle (\absenderRaum, \pageHeight - 2 * \logoRaum);
+		\fill[tf] (\absenderRaum, \pageHeight - \logoRaum) rectangle (\pageWidth, \pageHeight - 2*\logoRaum);
+		\fill[tf] (0, \pageHeight - 2 * \logoRaum) rectangle (\absenderRaum, \pageHeight - 3 * \logoRaum);
+		\fill[fau] (\absenderRaum, \pageHeight - 2 * \logoRaum) rectangle (\pageWidth, \pageHeight - 5 * \logoRaum);
+
+		% watermark inf
+		\ifthenelse{\boolean{@isevencoverpage@earlydraft}}{%
+			% no watermark in draft mode
+		}{%
+			\node[anchor = south east, opacity = 0.1]
+				at (\pageWidth - \textMargin, \urlH + \textMargin)
+				{#9};
+		}
+
+		\node[fill=white, fit=(chairlogotext) (chairlogo) (logorand)] {};
+	\end{pgfonlayer}
+
+	% Die Linien müssen immer obenauf liegen.
+	\begin{pgfonlayer}{i4coverfront}
+		% Linie zwischen Absender-Raum und Schrift- bzw. Grafik-Raum
+		\draw[color=white, line width=\lineW] (\absenderRaum, \pageHeight - \logoRaum) -- (\absenderRaum, \urlH);
+
+		% Linie zwischen Logo-Raum und Schrift-Raum (normalerweise unsichtbar)
+		\draw[color=white, line width=\lineW] (0, \pageHeight - \logoRaum) -- (\pageWidth, \pageHeight - \logoRaum);
+		\draw[color=white, line width=\lineW] (0, \pageHeight - 2 * \logoRaum) -- (\pageWidth, \pageHeight - 2 * \logoRaum);
+		%\draw[color=white, line width=\lineW] (0, \pageHeight - 3 * \logoRaum) -- (\pageWidth, \pageHeight - 3 * \logoRaum);
+		%\draw[color=white, line width=\lineW] (0, \pageHeight - 4 * \logoRaum) -- (\pageWidth, \pageHeight - 4 * \logoRaum);
+		\draw[color=white, line width=\lineW] (0, \pageHeight - 5 * \logoRaum) -- (\pageWidth, \pageHeight - 5 * \logoRaum);
+	\end{pgfonlayer}
+
+
+\end{tikzpicture} }; \end{tikzpicture}
+
+\cleardoublepage
+\setcounter{page}\@ne
+\endgroup
+}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%% The old-school modern Titlepage
+\newcommand{\makecoverpage@old}[9]{%
 
 % Cover page uses single line spacing
 
@@ -155,4 +379,5 @@
 \setcounter{page}\@ne
 \endgroup
 }
+
 % -----------------------------------------------------------------------------
