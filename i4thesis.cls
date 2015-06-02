@@ -236,9 +236,17 @@
 	\newcommand{\glossarytitlename}{Abkürzungsverzeichnis}
     \newcommand{\listoftitlename}{Verzeichnisse}
 }{
-	\newcommand{\thedate}{\selectlanguage{ngerman}\today\selectlanguage{american}}
-    \newcommand{\listoftitlename}{Lists}
-	\newcommand{\glossarytitlename}{List of Acronyms}
+  \RequirePackage[german,american]{isodate}
+  \newcommand{\thedate}{
+    \makeatletter
+    \def\iso@languagename{german}%
+    \dategerman%
+    \today
+    \def\iso@languagename{american}%
+    \makeatother
+  }
+  \newcommand{\listoftitlename}{Lists}
+  \newcommand{\glossarytitlename}{List of Acronyms}
 }
 
 % Language-independent timestamp
