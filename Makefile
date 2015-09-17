@@ -7,7 +7,7 @@ DEPFILES = $(wildcard *.tex)
 all: $(PDFFILE)
 
 $(PDFFILE): $(TEXFILE) $(DEPFILES)
-		latexmk -pdf -pdflatex="pdflatex -interactive=nonstopmode" -use-make $(TEXFILE)
+		latexmk -pdf -pdflatex="pdflatex -interactive=nonstopmode" $(TEXFILE)
 
 clean:
 	latexmk -CA
