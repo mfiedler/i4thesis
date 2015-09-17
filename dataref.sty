@@ -22,10 +22,9 @@
 %% 
 %% This work consists of the files dataref.dtx and dataref.ins
 %% and the derived file dataref.sty.
-
 \NeedsTeXFormat{LaTeX2e}[1999/12/01]
 \ProvidesPackage{dataref}
- [2015/04/21 v0.4 dataref]
+ [2015/09/17 v0.5 dataref]
 
 \ifx\drefloaded\undefined
   \let\drefloaded=\relax
@@ -38,12 +37,10 @@
   \def\dref@error#1{\PackageError{dref}{#1}{}}%
 \fi
 \RequirePackage{pgf}
+\RequirePackage{iftex}
 \RequirePackage{kvoptions}
 \usepgflibrary{fpu}
 \usepackage{etoolbox}
-\let\origforlistloop\forlistloop
-\usepackage{etextools}
-\let\forlistloop\origforlistloop
 \RequirePackage{xcolor}
 
 \SetupKeyvalOptions{
@@ -88,12 +85,6 @@
     \immediate\write\@auxout{\noexpand\dref@found{\drefcurrentkey}{\dref@thepage}}%
   }{%
     \immediate\write\@auxout{\noexpand\dref@notfound{\drefcurrentkey}{\dref@thepage}}%
-    \ifdref@ignoremissing%
-       \typeout{Dref warning: undefined key `\drefcurrentkey'}%
-       \dref@mkannotate{UNDEFINED: \drefcurrentkey}%
-    \else%
-       \dref@error{Dref error: undefined key `\drefcurrentkey'}%
-    \fi%
   }%
   \immediate\write\@auxout{\noexpand\dref@referenced{\drefcurrentkey}{\dref@thepage}}%
 }
@@ -122,8 +113,32 @@
 \def\drefref#1{%
   \dref@unexpandable{#1}%
 }
+%% dref@ifstrmatch is copied from etextools, but etextools is
+%% incompatible with etoolbox
+%% \ifstrmatch{ pattern }{ string }{ true }{ false }
+\ifPDFTeX%
+\let\dref@strmatch\pdfmatch
+\fi
+\ifLuaTeX%
+\newcommand{\dref@strmatch}[2]{%
+  \directlua{%
+    local match = string.find("\luaescapestring{#2}", "\luaescapestring{#1}");%
+    if match then
+      tex.print("1");
+    else
+      tex.print("0");
+    end
+  }%
+}
+\fi
+\long\def\dref@firstoftwo#1#2{\z@#1} %% for romannumeral
+\long\def\dref@secondoftwo#1#2{\z@#2}%% for romannumeral
+\newcommand{\dref@ifstrmatch}[2]{%
+  \romannumeral\csname dref@%
+  \ifnum\dref@strmatch{#1}{#2}=1 first\else second\fi oftwo\endcsname%
+}
 \newcommand{\dref@help@match}[2]{%
-  \ifstrmatch{#1}{#2}%
+  \dref@ifstrmatch{#1}{#2}%
 }
 \newcommand{\dref@help}[2][]{%
   \pgfkeysifdefined{#2/help}{%
@@ -364,7 +379,7 @@
 \expandafter\def\expandafter\dref@usagereport@strippath@\dref@datapath#1\blanktest{#1}
 
 \newcommand{\dref@usagereport@strippath}[1]{%
-  \expandafter\ifstrmatch\expandafter{\expandafter^\dref@datapath.*$}{#1}%
+  \expandafter\dref@ifstrmatch\expandafter{\expandafter^\dref@datapath.*$}{#1}%
     {\dref@usagereport@strippath@#1\blanktest}%
     {#1}%
 }
