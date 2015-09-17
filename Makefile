@@ -7,7 +7,8 @@ DEPFILES = $(wildcard *.tex)
 all: $(PDFFILE)
 
 $(PDFFILE): $(TEXFILE) $(DEPFILES)
-		latexmk -pdf -pdflatex="pdflatex -interactive=nonstopmode" $(TEXFILE)
+	latexmk -pdf -pdflatex="pdflatex -interactive=nonstopmode" $(TEXFILE)
+# For LuaTex: latexmk -pdf -pdflatex="lualatex -interactive=nonstopmode" $(TEXFILE)
 
 clean:
 	latexmk -CA

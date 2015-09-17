@@ -16,6 +16,8 @@
 % Class options
 % -----------------------------------------------------------------------------
 \RequirePackage{ifthen}
+\RequirePackage{iftex}
+
 
 % [germanthesis] - Thesis is written in German
 \newboolean{germanthesis}
@@ -111,7 +113,9 @@
 % TODO: nicer math font?
 
 % More encoding and typesetting fixes and tweaks
+\ifPDFTeX
 \RequirePackage[utf8]{inputenc}
+\fi
 \RequirePackage[T1]{fontenc}
 \RequirePackage{textcomp}
 \RequirePackage{fixltx2e}
@@ -119,14 +123,22 @@
 	\newcommand{\mydisableprotrusion}{}
     \newcommand{\textls}[2][]{#2}
 }{
-	\RequirePackage[babel,protrusion=true,expansion=true,tracking=false,kerning=true,spacing=true]{microtype}
-	\newcommand{\mydisableprotrusion}{\microtypesetup{protrusion=false}}
+  \ifPDFTeX
+     \RequirePackage[babel,protrusion=true,expansion=true,tracking=false,kerning=true,spacing=true]{microtype}
+  \else
+     \RequirePackage[babel,protrusion=true,expansion=true,tracking=false,kerning=false,spacing=false]{microtype}
+  \fi
+  \newcommand{\mydisableprotrusion}{\microtypesetup{protrusion=false}}
 }
 \RequirePackage{hyphenat}
 
 % Graphics insertion and filetypes' order of precedence
+\ifPDFTeX
 \RequirePackage[pdftex]{graphicx}
 \pdfminorversion=6
+\else
+\RequirePackage{graphicx}
+\fi
 \DeclareGraphicsRule{.out.png}{png}{.out.png}{}
 \ifthenelse{\boolean{earlydraft}}{
 	\DeclareGraphicsExtensions{.thumb.jpg,.out.png,.pdf,.png,.jpg}
