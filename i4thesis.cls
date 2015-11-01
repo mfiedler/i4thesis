@@ -172,7 +172,7 @@
 
 % Citations
 \RequirePackage[backend=bibtex,style=alphabetic]{biblatex}
-\defbibheading{bibliography}[\refname]{\chapter*{#1}}
+\defbibheading{bibliography}[\refname]{\chapter*{#1}\chaptermark{#1}}
 
 % The "SI" and "num" commands for typesetting units
 %\RequirePackage[sepfour=true,tophrase=\dots,per=slash,obeyall]{siunitx}
