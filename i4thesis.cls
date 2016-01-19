@@ -217,12 +217,6 @@
     \def\cvtitle{Curriculum Vitae}
 }
 
-% % Don't indent paragraphs in german theses. Instead, leave blank space between paragraphs.
-% \ifthenelse{\boolean{germanthesis}}{
-% 	\RequirePackage{parskip}
-% }{
-% }
-
 % Time and date functions
 \RequirePackage{datetime}
 
