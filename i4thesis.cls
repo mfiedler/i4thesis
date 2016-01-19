@@ -118,7 +118,6 @@
 \fi
 \RequirePackage[T1]{fontenc}
 \RequirePackage{textcomp}
-\RequirePackage{fixltx2e}
 \ifthenelse{\boolean{earlydraft}}{
 	\newcommand{\mydisableprotrusion}{}
     \newcommand{\textls}[2][]{#2}
