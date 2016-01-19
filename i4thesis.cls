@@ -349,32 +349,51 @@
 \ifthenelse{\boolean{plainunnumbered}}{
 \renewpagestyle{plain}{%
 	\sethead{}{}{}
-	\setfoot{}{}{\thewatermark}
+	\setfoot{}{\thewatermark}{}
 }
 }{
 \renewpagestyle{plain}{%
 	\sethead{}{}{}
-	\setfoot{}{\mypageheadfont\thepage}{\thewatermark}
+  \ifthenelse{\boolean{oneside}}{
+    \setfoot{}{\mypageheadfont\thepage}{\thewatermark}
+  }{
+    \setfoot*{}{\thewatermark}{\mypageheadfont\thepage}
+  }
 }
 }
 
 % Pagestyle "fancy"
 \newpagestyle{fancy}{%
-\sethead*{
-	\bfseries
-	\toptitlemarks
-	\mypageheadfont\bfseries
-	\ifthechapter
-		{
-			\ifthesection
-			{\thesection~\sectiontitle}
-			{\thechapter~\chaptertitle}
-		}
-		{\chaptertitle}
-}
-{}{\mypageheadfont\bfseries\thepage}
-	\setfoot{}{}{\thewatermark}
-	\headrule
+  \ifthenelse{\boolean{oneside}}{
+    \sethead*{
+      \bfseries
+      \toptitlemarks
+      \mypageheadfont\bfseries
+      \ifthechapter{
+        \ifthesection{\thesection~\sectiontitle}{\thechapter~\chaptertitle}
+      }{
+        \chaptertitle
+      }
+    }{
+    }{
+    }
+    \setfoot*{}{}{\thewatermark}
+  }{
+    \sethead*{
+    }{
+    }{
+      \bfseries
+      \toptitlemarks
+      \mypageheadfont\bfseries
+      \ifthechapter{
+        \ifthesection{\thesection~\sectiontitle}{\thechapter~\chaptertitle}
+      }{
+        \chaptertitle
+      }
+    }
+    \setfoot*{}{\thewatermark}{\mypageheadfont\thepage}
+  }
+  \headrule
 }
 \pagestyle{fancy}
 
