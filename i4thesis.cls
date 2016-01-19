@@ -89,6 +89,7 @@
 \setlength{\spinemargin}{\paperwidth / 9}
 \RequirePackage[a4paper, hmarginratio=1:2, vmarginratio=1:2, inner=\spinemargin, top=\spinemargin]{geometry}
 }
+\setlength\parskip{0pt} 
 
 % 150 percent line spacing
 \RequirePackage{setspace}
