@@ -75,12 +75,19 @@
 % Basics
 % -----------------------------------------------------------------------------
 % This class is based on report
+\RequirePackage{calc}
 \ifthenelse{\boolean{oneside}}{
-\LoadClass[a4paper,10pt,onecolumn,oneside,openright]{report}
-\RequirePackage[a4paper,textwidth=410pt,textheight=598pt,bindingoffset=0cm,marginparwidth=3cm,hmarginratio=1:1,vmarginratio=1:1]{geometry}
+\LoadClass[a4paper,11pt,onecolumn,oneside,openright]{report}
+\newlength{\headmargin}
+\setlength{\headmargin}{\paperwidth / 9}
+\newlength{\foreedge}
+\setlength{\foreedge}{\headmargin * 3 / 2}
+\RequirePackage[a4paper,top=\headmargin,left=\foreedge,hmarginratio=1:1,vmarginratio=1:2]{geometry}
 }{
-\LoadClass[a4paper,10pt,onecolumn,twoside,openright]{report}
-\RequirePackage[a4paper,textwidth=410pt,textheight=598pt,bindingoffset=0cm,marginparwidth=3cm,hmarginratio=1:1,vmarginratio=1:1]{geometry}
+\LoadClass[a4paper,11pt,onecolumn,twoside,openright]{report}
+\newlength{\spinemargin}
+\setlength{\spinemargin}{\paperwidth / 9}
+\RequirePackage[a4paper, hmarginratio=1:2, vmarginratio=1:2, inner=\spinemargin, top=\spinemargin]{geometry}
 }
 
 % 150 percent line spacing
