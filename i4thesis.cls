@@ -114,7 +114,7 @@
 %\RequirePackage[osf]{libertine}  % Linux Libertine
 %\renewcommand{\mypageheadfont}{\normalfont\libertine}
 %\renewcommand{\myheadingfont}{\normalfont\libertine}
-\RequirePackage{lmodern}  % TT: Latin Modern
+\RequirePackage{inconsolata} % TT: Inconsolata
 \RequirePackage{helvet}  % SF: Helvetica 
 \RequirePackage[bitstream-charter,sfscaled=false]{mathdesign}  % RM: Bitstream Charter
 % TODO: nicer math font?
