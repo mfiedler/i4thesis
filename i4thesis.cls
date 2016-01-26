@@ -168,7 +168,7 @@
                 pdfdisplaydoctitle=true,
                 breaklinks=true]{hyperref}
 % Link to beginning of floats
-\RequirePackage{hypcap}
+\RequirePackage[all]{hypcap}
 
 % Captions
 \RequirePackage[font=small, labelfont=bf, labelsep=endash, margin=1cm]{caption}
