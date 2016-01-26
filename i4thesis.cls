@@ -512,6 +512,12 @@
     \gdef\listlistingname{List of Listings}
 	\renewcommand{\lstlistlistingname}{List of Listings}
 }
+
+% leave a gap between entries in list of listings that belong to different
+% chapters so it is consistent with list of tables and figures
+\let\Chapter\chapter
+\def\chapter{\addtocontents{lol}{\protect\addvspace{10pt}}\Chapter}
+
 \lstset{
 	language=C,
 	frame=lines,
