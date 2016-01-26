@@ -333,6 +333,7 @@
 \restylefloat{algorithm}
 \ifthenelse{\boolean{germanthesis}}{
 	\floatname{algorithm}{Algorithmus}
+	\renewcommand{\listalgorithmname}{Algorithmenverzeichnis}
 }{
 }
 
