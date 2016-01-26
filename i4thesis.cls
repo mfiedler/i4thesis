@@ -356,7 +356,7 @@
 }
 
 % Pagestyle "fancy"
-\newpagestyle{fancy}{%
+\newpagestyle{fancy}{ % keep in sync with fancy-lists style
   \ifthenelse{\boolean{oneside}}{
     \sethead*{
       \scshape
@@ -389,6 +389,45 @@
   \headrule
 }
 \pagestyle{fancy}
+
+% The listings at the end of the thesis use unnumbered chapters and sections.
+% Therefore, a separate page style without numbers is required.  Otherwise, the
+% outdated numbers would be used for all the following unnumbered chapters.
+% Moreover, the use of \sectionmark{sectionname} at the beginning of each section
+% is required to obtain the correct section name for the page header.
+\newpagestyle{fancy-lists}{ % keep in sync with fancy style
+  \ifthenelse{\boolean{oneside}}{
+    \sethead*{
+      \scshape
+      \toptitlemarks
+      \mypageheadfont\scshape
+      \ifthechapter{
+        \ifthesection{\sectiontitle}{\chaptertitle}
+      }{
+        \chaptertitle
+      }
+    }{
+    }{
+    }
+    \setfoot*{}{}{\thewatermark}
+  }{
+    \sethead*{
+    }{
+    }{
+      \scshape
+      \toptitlemarks
+      \mypageheadfont\scshape
+      \ifthechapter{
+        \ifthesection{\sectiontitle}{\chaptertitle}
+      }{
+        \chaptertitle
+      }
+    }
+    \setfoot*{}{\thewatermark}{\mypageheadfont\thepage}
+  }
+  \headrule
+}
+
 
 % rename (sub)paragraph to (sub)subsubsubsection
 \let\myparagraph\paragraph
@@ -731,8 +770,6 @@ Erlangen, \thedate
 
 \cleardoublepage
 }
-
-\pagestyle{fancy}
 
 }
 % -----------------------------------------------------------------------------
