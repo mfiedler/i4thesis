@@ -106,6 +106,7 @@
 % Avoid widows and orphans (single line on bottom or top of page, respectively) at almost any cost
 \clubpenalty = 10000
 \widowpenalty = 10000
+\displaywidowpenalty = 10000 % formulas
 %\raggedbottom
 
 % Default fonts
