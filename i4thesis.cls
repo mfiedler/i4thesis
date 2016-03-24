@@ -114,9 +114,13 @@
 %\RequirePackage[osf]{libertine}  % Linux Libertine
 %\renewcommand{\mypageheadfont}{\normalfont\libertine}
 %\renewcommand{\myheadingfont}{\normalfont\libertine}
-\RequirePackage{inconsolata} % TT: Inconsolata
+%\RequirePackage[bitstream-charter,sfscaled=false,expert]{mathdesign}  % RM: Bitstream Charter
+\RequirePackage[sups,scaled=.98]{XCharter}
 \RequirePackage{helvet}  % SF: Helvetica 
-\RequirePackage[bitstream-charter,sfscaled=false]{mathdesign}  % RM: Bitstream Charter
+\RequirePackage[scaled=1.04,varqu,varl]{inconsolata} % TT: Inconsolata
+\RequirePackage[charter,bigdelims,vvarbb,scaled=1.07]{newtxmath}
+\RequirePackage[cal=boondoxo]{mathalfa}
+\linespread{1.04}
 % TODO: nicer math font?
 
 % More encoding and typesetting fixes and tweaks
@@ -193,7 +197,6 @@
 
 % Equation typesetting fixes and tweaks + proof/theorem environment
 \RequirePackage{amsmath}
-\RequirePackage{amsthm}
 \newtheorem{thm}{Theorem}[section]
 \everydisplay={\setlength{\abovedisplayshortskip}{-0.5em plus1ex minus1ex}\setlength{\abovedisplayskip}{-0.5em plus1ex minus1ex}}
 
