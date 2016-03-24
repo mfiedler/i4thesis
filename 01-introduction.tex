@@ -51,6 +51,27 @@ Use the \verb|\label| and \verb|\cref| commands for cross references, e.g.\ to \
 	\label{fig:setups12}%
 \end{figure}
 
+\ifthenelse{\boolean{gnuplot}}{
+\subsection{Plotting}
+You can make \LaTeX{} generate plots automatically using \texttt{gnuplot}.
+Just put your data into a \texttt{csv} file in the \texttt{plots} subdirectory and create a \texttt{gnuplot} script ending in \texttt{.gplt}.
+Follow the example from \texttt{plots/ass\_granularity.gplt} shown in Figure \ref{fig:AssGran}.
+\begin{figure}
+  \centering
+  \vspace{\gnuplotpreskip}
+  \tikzset{external/export=true}
+  \tikzsetnextfilename{eval-ass_granularity}
+  \input{plots/ass_granularity.tex}
+  \tikzset{external/export=false}
+  \vspace{\gnuplotcaptionskip}
+  \caption{Prevalent assignment and scheduling on \emph{task} or \emph{subtask-level} compared to scheduling at the granularity of ABB for the same set of 12,812 random systems with up to 68 ABB.}
+  \label{fig:AssGran}
+  \vspace{\gnuplotundercaptionskip}
+\end{figure}
+
+
+}{}
+
 \subsection{Tables}
 
 \Cref{tab:SensorNetworkApplications} gives an overview of the discussed application classes.
@@ -192,8 +213,8 @@ for further examples.
 You can use the the \verb|\TODO| command to add short ``sticky notes'' to your document. 
 \TODO{This is what a TODO looks like}
 This will also trigger generation of a list-of-TODOs at the end of the document. 
-The same goes for the \verb|\FIXME|\FIXME{This is what a FIXME looks like} command.
-
+The same goes for the \verb|\FIXME| command.\FIXME{This is what a FIXME looks like}
+Be careful when using \verb|\TODO| or \verb|\FIXME| near figures when using the gnuplot feature.
 
 \subsection{TikZ}
 

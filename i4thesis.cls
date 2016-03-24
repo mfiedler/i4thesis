@@ -66,6 +66,10 @@
 \setboolean{privacy}{false}
 \DeclareOption{privacy}{\setboolean{privacy}{true}}
 
+\newboolean{gnuplot}
+\setboolean{gnuplot}{false}
+\DeclareOption{gnuplot}{\setboolean{gnuplot}{true}}
+
 
 \ProcessOptions \relax
 % -----------------------------------------------------------------------------
@@ -290,6 +294,33 @@
 
 % Sans Serif Font for tikzpictures
 \tikzset{every picture/.append style={font=\sffamily}}
+
+\ifthenelse{\boolean{gnuplot}}{
+\RequirePackage{pgf}
+\RequirePackage{pgfplots}
+\RequirePackage{pgfplotstable}
+\pgfplotsset{compat=newest}
+\RequirePackage{gnuplot/gnuplot-lua-tikz}
+\usetikzlibrary{external}
+\tikzexternalize[prefix=generated/]
+\tikzset{external/export=false}
+% reduce distance between float and description
+%\renewcommand{\floatpagefraction}{.97}
+%\addtolength{\abovecaptionskip}{-.9em}
+\newlength{\gnuplotcaptionskip}
+%\setlength{\gnuplotcaptionskip}{-2.2em}
+\newlength{\gnuplotundercaptionskip}
+\setlength{\gnuplotundercaptionskip}{-1em}
+\newlength{\gnuplotpreskip}
+\addtolength{\gnuplotpreskip}{-0.5em}
+\addtolength{\intextsep}{-0.1em}
+\addtolength{\floatsep}{-0.1em}
+\addtolength{\textfloatsep}{-0.1em}
+\addtolength{\dblfloatsep}{-0.1em}
+\addtolength{\dbltextfloatsep}{-0.1em}
+\addtolength{\topsep}{-2ex}
+}{}
+
 
 % This removes the auto anchor feature, when an explicit anchor is given
 \tikzset{anchor/.append code={\let\tikz@auto@anchor\relax\let\tikz@compute@direction\pgfutil@gobble}}

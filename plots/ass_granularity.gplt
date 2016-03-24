@@ -1,0 +1,12 @@
+
+load "plots/gpltstyle"
+
+set output "plots/ass_granularity.tex"
+#set output "plots/ass_granularity.png"
+set xlabel "Utilisation"
+set ylabel "Schedulable Systems[\\%]"
+set yrange [0:110]
+#set xrange [-0.5:7.7]
+plot 'plots/ass_gran_ABBS.csv'     every ::1 using  ($10*100):($11*100):xtic(1) ti  "ABB"       ls 1, \
+     'plots/ass_gran_subtasks.csv' every ::1 using  ($10*100):($11*100)         ti  "subtask"   ls 2, \
+     'plots/ass_gran_tasks.csv'    every ::1 using  ($10*100):($11*100)         ti  "task"      ls 3

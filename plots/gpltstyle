@@ -1,0 +1,24 @@
+reset
+set terminal lua tikz font "\\footnotesize" originreset picenvironment size 9,6
+#set terminal png medium font "helvetica 11"
+set format x "%1.1f"
+set format y "%1.1f"
+
+set style line 1 lt -1 lc rgb "#EE934F"
+set style line 2 lt -1 lc rgb "#EEBF4F"
+set style line 3 lt -1 lc rgb "#4354A2"
+set style line 4 lt -1 lc rgb "#319489"
+set style line 5 lt -1 lc rgb "#FFCAA2"
+set style line 6 lt -1 lc rgb "#FFE4A2"
+set style line 7 lt -1 lc rgb "#929ED6"
+set style line 8 lt -1 lc rgb "#83CEC6"
+
+set style fill solid 1.0 noborder
+set style histogram errorbars gap 1 lw 1
+set style data histogram
+#set xtics rotate by -45
+set grid ytics
+set bar fullwidth
+set datafile separator ";"
+set tics out nomirror scale 0.7
+set boxwidth 0.75 relative
