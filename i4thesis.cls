@@ -119,12 +119,15 @@
 %\RequirePackage[osf]{libertine}  % Linux Libertine
 %\renewcommand{\mypageheadfont}{\normalfont\libertine}
 %\renewcommand{\myheadingfont}{\normalfont\libertine}
-%\RequirePackage[bitstream-charter,sfscaled=false,expert]{mathdesign}  % RM: Bitstream Charter
+\IfFileExists{XCharter}{
 \RequirePackage[sups,scaled=.98]{XCharter}
-\RequirePackage{helvet}  % SF: Helvetica 
-\RequirePackage[scaled=1.04,varqu,varl]{inconsolata} % TT: Inconsolata
 \RequirePackage[charter,bigdelims,vvarbb,scaled=1.07]{newtxmath}
 \RequirePackage[cal=boondoxo]{mathalfa}
+}{
+\RequirePackage[bitstream-charter,sfscaled=false]{mathdesign}  % RM: Bitstream Charter
+}
+\RequirePackage{helvet}  % SF: Helvetica 
+\RequirePackage[scaled=1.04,varqu,varl]{inconsolata} % TT: Inconsolata
 \linespread{1.04}
 % TODO: nicer math font?
 
