@@ -817,5 +817,17 @@ Erlangen, \thedate
 }
 
 }
+
+%
+% workaround for a bug in texlive 2016's titlesec package that prevents section
+% numbers from being shown, cf.
+% https://tex.stackexchange.com/questions/299969/titlesec-loss-of-section-numbering-with-the-new-update-2016-03-15
+%
+\RequirePackage{etoolbox}
+\makeatletter
+\patchcmd{\ttlh@hang}{\parindent\z@}{\parindent\z@\leavevmode}{}{}
+\patchcmd{\ttlh@hang}{\noindent}{}{}{}
+\makeatother
+
 % -----------------------------------------------------------------------------
 
