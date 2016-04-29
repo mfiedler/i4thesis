@@ -481,7 +481,7 @@
   {\relax}% Format
   {\mbox{}\marginpar{\color{gray}\fontsize{96pt}{96pt}\selectfont%
       \setlength{\@chapterwidth}{\widthof{\thechapter}}%
-      \vspace{-20pt}\hspace{-1.2\@chapterwidth}%
+      \vspace{-25pt}\hspace{-1.2\@chapterwidth}%
     \thechapter
   }}%Label
   {0pt}% Seperator
