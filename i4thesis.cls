@@ -398,9 +398,9 @@
 \newpagestyle{fancy}{ % keep in sync with fancy-lists style
   \ifthenelse{\boolean{oneside}}{
     \sethead*{
-      \scshape
+      \bfseries
       \toptitlemarks
-      \mypageheadfont\scshape
+      \mypageheadfont\bfseries
       \ifthechapter{
         \ifthesection{\thesection~\sectiontitle}{\thechapter~\chaptertitle}
       }{
@@ -414,9 +414,9 @@
     \sethead*{
     }{
     }{
-      \scshape
+      \bfseries
       \toptitlemarks
-      \mypageheadfont\scshape
+      \mypageheadfont\bfseries
       \ifthechapter{
         \ifthesection{\thesection~\sectiontitle}{\thechapter~\chaptertitle}
       }{
@@ -786,7 +786,7 @@ Abgabe der Arbeit: & \textbf{\thethesisend}\\
 
 \begin{otherlanguage*}{ngerman}
 {\Large\noindent%
-\textsc{Erklärung} \newline}
+Erklärung \newline}
 
 \noindent%
 Ich versichere, dass ich die Arbeit ohne fremde Hilfe und ohne Benutzung anderer als der angegebenen Quellen angefertigt habe und dass die Arbeit in gleicher oder ähnlicher Form noch keiner anderen Prüfungsbehörde vorgelegen hat und von dieser als Teil einer Prüfungsleistung angenommen wurde. Alle Ausführungen, die wörtlich oder sinngemäß übernommen wurden, sind als solche gekennzeichnet.
@@ -798,10 +798,10 @@ Ich versichere, dass ich die Arbeit ohne fremde Hilfe und ohne Benutzung anderer
 
 \begin{otherlanguage*}{american}
 {\Large\noindent%
-\textsc{Declaration} \newline}
+Declaration \newline}
 
 \noindent%
-I declare that the work is entirely my own and was produced with no assistance from third parties.
+I declare that the work is entirely my own and was produced with no assistance from third parties.\\
 I certify that the work has not been submitted in the same or any similar form for assessment to any other examining body and all references, direct and indirect, are indicated as such and have been cited accordingly.
 \end{otherlanguage*}
 
