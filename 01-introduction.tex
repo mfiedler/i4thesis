@@ -24,6 +24,7 @@ Use the \verb|\label| and \verb|\cref| commands for cross references, e.g.\ to \
 \subsection{Figures}
 
 \Cref{fig:setup0} shows the distribution of the nodes in the sample setup at time $t=0$, as well as the initial coverage with a sensing radius of \SI{30}{\metre} and the communication graph for a communication range of \SI{50}{\metre}.
+Figure captions should always be placed at the bottom of the figure.
 
 \begin{figure}
 	\centering
@@ -75,9 +76,12 @@ Follow the example from \texttt{plots/ass\_granularity.gplt} shown in Figure \re
 \subsection{Tables}
 
 \Cref{tab:SensorNetworkApplications} gives an overview of the discussed application classes.
+In contrast to figure captions, table captions are always placed above the table.
 
 \begin{table}
 	\centering
+	\caption{Sensor network applications}
+	\label{tab:SensorNetworkApplications}
 	\begin{tabular}{>{\raggedright}p{1.8cm}p{5.4cm}p{3.4cm}}
 		\toprule
 		Class & application examples & lifetime aspects \\
@@ -96,8 +100,6 @@ Follow the example from \texttt{plots/ass\_granularity.gplt} shown in Figure \re
 				$c_{cc}$, $c_{sd}$ 	\\
 		\bottomrule
 	\end{tabular}
-	\caption{Sensor network applications}
-	\label{tab:SensorNetworkApplications}
 \end{table}
 
 
@@ -129,6 +131,8 @@ Units should be set using the \verb|\SI| command: the measurements show that the
 
 \begin{table}
 	\centering
+	\caption{EMIT factors for a category 9 vehicle}
+	\label{tab:si-in-tables}
 	\begin{tabular}{l>{\raggedright}p{4cm}S[table-text-alignment=left,table-format=1.4e-1]s}
 	\toprule
 		\multicolumn{2}{l}{factor} & \multicolumn{1}{l}{value} & \multicolumn{1}{c}{unit} \\
@@ -140,8 +144,6 @@ Units should be set using the \verb|\SI| command: the measurements show that the
  		$\delta$ & & 1.9800e-6 & \gram\per\meter\cubed\second\squared \\
 	\bottomrule
 	\end{tabular}
-	\caption{EMIT factors for a category 9 vehicle}
-	\label{tab:si-in-tables}
 \end{table}
 
 \subsection{Algorithms}
