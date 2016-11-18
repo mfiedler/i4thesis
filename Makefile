@@ -8,6 +8,7 @@ all: $(PDFFILE)
 
 $(PDFFILE): $(TEXFILE) $(DEPFILES)
 	latexmk -pdf -pdflatex="pdflatex -interactive=nonstopmode" $(TEXFILE)
+# for gnuplot support: latexmk -pdf -pdflatex="pdflatex -interactive=nonstopmode --shell-escape" $(TEXFILE)
 # For LuaTex: latexmk -pdf -pdflatex="lualatex -interactive=nonstopmode" $(TEXFILE)
 
 clean:
