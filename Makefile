@@ -14,4 +14,5 @@ $(PDFFILE): $(TEXFILE) $(DEPFILES)
 clean:
 	latexmk -CA
 	rm -f $(TEXFILES:.tex=.synctex.gz) $(TEXFILE:.tex=.bbl) $(TEXFILE:.tex=.tdo)
+	rm -f generated/* plots/*.tex
 
