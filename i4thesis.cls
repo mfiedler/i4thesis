@@ -209,9 +209,6 @@
 % -----------------------------------------------------------------------------
 
 % Multi-language support using Babel
-\let\myoldshow\show\renewcommand{\show}{}  % temporarily disable \show command, as babeltools 2010/10/14 seems to use it
-\RequirePackage[shorthands=off]{babeltools}  % don't use any shorthands (i.e. "a will not try to produce an umlaut)
-\let\show\myoldshow\renewcommand{\myoldshow}{}  % re-enable \show command
 \ifthenelse{\boolean{germanthesis}}{
 	\RequirePackage[american,ngerman]{babel}
     \def\cvtitle{Lebenslauf}
