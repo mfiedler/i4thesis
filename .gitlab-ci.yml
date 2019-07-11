@@ -13,7 +13,7 @@ thesisPDF:
 # Generische Regel für auf Debian basierende Distributionen
 .debianoide:
   only:
-    - master@i4/tex/thesis
+    - master@i4/tex/i4thesis
   before_script:
     - ln -fs /usr/share/zoneinfo/Europe/Berlin /etc/localtime
     - export DEBIAN_FRONTEND=noninteractive
