@@ -7,9 +7,9 @@ DEPFILES = $(wildcard *.tex)
 all: $(PDFFILE)
 
 $(PDFFILE): $(TEXFILE) $(DEPFILES)
-	latexmk -pdf -pdflatex="pdflatex -interactive=nonstopmode" $(TEXFILE)
-# for gnuplot support: latexmk -pdf -pdflatex="pdflatex -interactive=nonstopmode --shell-escape" $(TEXFILE)
-# For LuaTex: latexmk -pdf -pdflatex="lualatex -interactive=nonstopmode" $(TEXFILE)
+	latexmk -pdf -pdflatex="pdflatex -interaction=nonstopmode" $(TEXFILE)
+# for gnuplot support: latexmk -pdf -pdflatex="pdflatex -interaction=nonstopmode --shell-escape" $(TEXFILE)
+# For LuaTex: latexmk -pdf -pdflatex="lualatex -interaction=nonstopmode" $(TEXFILE)
 
 clean:
 	latexmk -CA
