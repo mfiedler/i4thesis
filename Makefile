@@ -13,6 +13,6 @@ $(PDFFILE): $(TEXFILE) $(DEPFILES)
 
 clean:
 	latexmk -CA
-	rm -f $(TEXFILES:.tex=.synctex.gz) $(TEXFILE:.tex=.bbl) $(TEXFILE:.tex=.tdo)
+	rm -f $(TEXFILE:.tex=.synctex.gz) $(TEXFILE:.tex=.bbl) $(TEXFILE:.tex=.tdo) $(TEXFILE:.tex=.loa) $(TEXFILE:.tex=.lol) $(TEXFILE:.tex=.run.xml) $(TEXFILE:.tex=-blx.bib)
 	rm -f generated/* plots/*.tex
 
