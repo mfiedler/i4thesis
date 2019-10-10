@@ -43,6 +43,7 @@
 #include:titlesec
 #include:i4coverpage
 #include:listing
+#include:listings
 #include:savemem
 #include:tocbibind
 #include:todonotes
