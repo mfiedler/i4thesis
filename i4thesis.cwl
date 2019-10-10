@@ -84,3 +84,5 @@
 \thethesisend
 \theadvisors
 \thedean
+\TODO{text}
+\FIXME{description}{text}
