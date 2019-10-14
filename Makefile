@@ -8,9 +8,9 @@ TXSCWLPATH = ~/.config/texstudio/completion/user
 all: $(PDFFILE)
 
 $(PDFFILE): $(TEXFILE) $(DEPFILES)
-	latexmk -pdf -pdflatex="pdflatex -interactive=nonstopmode" $(TEXFILE)
-# for gnuplot support: latexmk -pdf -pdflatex="pdflatex -interactive=nonstopmode --shell-escape" $(TEXFILE)
-# For LuaTex: latexmk -pdf -pdflatex="lualatex -interactive=nonstopmode" $(TEXFILE)
+	latexmk -pdf -pdflatex="pdflatex -interaction=nonstopmode" $(TEXFILE)
+# for gnuplot support: latexmk -pdf -pdflatex="pdflatex -interaction=nonstopmode --shell-escape" $(TEXFILE)
+# For LuaTex: latexmk -pdf -pdflatex="lualatex -interaction=nonstopmode" $(TEXFILE)
 
 $(TXSCWLPATH)/%: %
 	ln -s $(abspath $^) $@
@@ -20,7 +20,7 @@ txs-autocompletion: $(TXSCWLPATH)/i4thesis.cwl $(TXSCWLPATH)/i4coverpage.cwl
 
 clean:
 	latexmk -CA
-	rm -f $(TEXFILES:.tex=.synctex.gz) $(TEXFILE:.tex=.bbl) $(TEXFILE:.tex=.tdo)
+	rm -f $(TEXFILE:.tex=.synctex.gz) $(TEXFILE:.tex=.bbl) $(TEXFILE:.tex=.tdo) $(TEXFILE:.tex=.loa) $(TEXFILE:.tex=.lol) $(TEXFILE:.tex=.run.xml) $(TEXFILE:.tex=-blx.bib)
 	rm -f generated/* plots/*.tex
 
 mrproper: clean
