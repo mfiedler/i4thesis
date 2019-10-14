@@ -8,9 +8,9 @@ TXSCWLPATH = ~/.config/texstudio/completion/user
 all: $(PDFFILE)
 
 $(PDFFILE): $(TEXFILE) $(DEPFILES)
-	latexmk -pdf -pdflatex="pdflatex -interaction=nonstopmode" $(TEXFILE)
-# for gnuplot support: latexmk -pdf -pdflatex="pdflatex -interaction=nonstopmode --shell-escape" $(TEXFILE)
-# For LuaTex: latexmk -pdf -pdflatex="lualatex -interaction=nonstopmode" $(TEXFILE)
+	latexmk -pdf -pdflatex="pdflatex -synctex=1 -interaction=nonstopmode" $(TEXFILE)
+# for gnuplot support: latexmk -pdf -pdflatex="pdflatex -synctex=1 -interaction=nonstopmode --shell-escape" $(TEXFILE)
+# For LuaTex: latexmk -pdf -pdflatex="lualatex -synctex=1 -interaction=nonstopmode" $(TEXFILE)
 
 $(TXSCWLPATH)/%: %
 	ln -s $(abspath $^) $@
