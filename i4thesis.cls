@@ -539,18 +539,23 @@
 % -----------------------------------------------------------------------------
 \RequirePackage{listing} % For \listoflistings
 \RequirePackage[savemem]{listings}
+
+
 \ifthenelse{\boolean{germanthesis}}{
-    \gdef\listlistingname{Quellcodeverzeichnis}
-	\renewcommand{\lstlistlistingname}{Quellcodeverzeichnis}
+	\newcommand{\listoflistingscaption}{Quellcodeverzeichnis}
 }{
-    \gdef\listlistingname{List of Listings}
-	\renewcommand{\lstlistlistingname}{List of Listings}
+	\newcommand{\listoflistingscaption}{List of Listings}
 }
+
+\RequirePackage{newfloat}
+\SetupFloatingEnvironment{listing}{listname=\listoflistingscaption}
 
 % leave a gap between entries in list of listings that belong to different
 % chapters so it is consistent with list of tables and figures
 \let\Chapter\chapter
 \def\chapter{\addtocontents{lol}{\protect\addvspace{10pt}}\Chapter}
+
+\captionsetup[listing]{aboveskip=0pt}
 
 \lstset{
 	language=C,
@@ -587,7 +592,6 @@
 	language=XML
 }
 % -----------------------------------------------------------------------------
-
 
 % -----------------------------------------------------------------------------
 % TOCs
