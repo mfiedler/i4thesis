@@ -257,12 +257,12 @@
 }{
   \RequirePackage[german,american]{isodate}
   \newcommand{\thedate}{
-    \makeatletter
+    
     \def\iso@languagename{german}%
     \dategerman%
     \today
     \def\iso@languagename{american}%
-    \makeatother
+    
   }
   \newcommand{\listoftitlename}{Lists}
   \newcommand{\glossarytitlename}{List of Acronyms}
@@ -363,6 +363,7 @@
 \def\@fs@mid{\kern2pt\hrule\relax\vspace\abovecaptionskip\relax}%
 \let\@fs@iftopcapt\iffalse%
 }
+
 \floatstyle{plain}
 \restylefloat{algorithm}
 \ifthenelse{\boolean{germanthesis}}{
@@ -477,7 +478,6 @@
   \RequirePackage{calc}
   \RequirePackage{textcase}
   \newlength{\@chapterwidth}
-
   \DeclareRobustCommand{\spacedallcaps}[1]{\textls[160]{\MakeTextUppercase{#1}}}
 
   \titleformat{\chapter}[display]%
@@ -615,9 +615,9 @@
 % -----------------------------------------------------------------------------
 \ifthenelse{\boolean{germanthesis}}{
 	\RequirePackage[colorinlistoftodos, textwidth=2.8cm, shadow, ngerman]{todonotes}
-	\makeatletter
+	
 	\@todonotes@SetTodoListName{Offene Punkte}
-	\makeatother
+	
 }{
 	\RequirePackage[colorinlistoftodos, textwidth=3.0cm, shadow]{todonotes}
 }
@@ -822,10 +822,10 @@ Erlangen, \thedate
 % https://tex.stackexchange.com/questions/299969/titlesec-loss-of-section-numbering-with-the-new-update-2016-03-15
 %
 \RequirePackage{etoolbox}
-\makeatletter
+
 \patchcmd{\ttlh@hang}{\parindent\z@}{\parindent\z@\leavevmode}{}{}
 \patchcmd{\ttlh@hang}{\noindent}{}{}{}
-\makeatother
+
 
 % -----------------------------------------------------------------------------
 
