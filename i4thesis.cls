@@ -172,11 +172,11 @@
                 colorlinks=false,
                 pdfdisplaydoctitle=true,
                 breaklinks=true]{hyperref}
-% Link to beginning of floats
-\RequirePackage[all]{hypcap}
 
 % Captions
-\RequirePackage[font=small, labelfont=bf, labelsep=endash, margin=1cm]{caption}
+% automatically loads hypcap
+% manually loading hypcap breaks hyperref targets for listings
+\RequirePackage[font=small, labelfont=bf, labelsep=endash, margin=1cm, hypcap]{caption}
 
 % Subfigures
 \RequirePackage{subcaption}
