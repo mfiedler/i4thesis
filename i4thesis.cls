@@ -512,25 +512,6 @@
 	\setcounter{secnumdepth}{3}
 }
 
-% I4 Cover Page 
-\RequirePackage{i4coverpage}
-% -----------------------------------------------------------------------------
-
-
-% -----------------------------------------------------------------------------
-% Commands for setting author, title, ... 
-% -----------------------------------------------------------------------------
-\renewcommand{\author}[1]{\gdef\theauthor{#1}}
-\renewcommand{\title}[1]{\gdef\thetitle{#1}}
-\newcommand{\germantitle}[1]{\gdef\thegermantitle{#1}}
-\newcommand{\thesistype}[1]{\gdef\thethesistype{#1}}
-\newcommand{\thesiscite}[1]{\gdef\thethesiscite{#1}}
-\newcommand{\birthday}[1]{\gdef\thebirthday{#1}}
-\newcommand{\birthplace}[1]{\gdef\thebirthplace{#1}}
-\newcommand{\thesisstart}[1]{\gdef\thethesisstart{#1}}
-\newcommand{\thesisend}[1]{\gdef\thethesisend{#1}}
-\newcommand{\advisors}[1]{\gdef\theadvisors{#1}}
-\newcommand{\dean}[1]{\gdef\thedean{#1}}
 % -----------------------------------------------------------------------------
 
 
@@ -591,6 +572,24 @@
 	float,
 	language=XML
 }
+
+% I4 Cover Page (uses csquotes, should be loaded after minted, which loads lineno, which wants to be loaded after csquotes)
+\RequirePackage{i4coverpage}
+
+% -----------------------------------------------------------------------------
+% Commands for setting author, title, ... 
+% -----------------------------------------------------------------------------
+\renewcommand{\author}[1]{\gdef\theauthor{#1}}
+\renewcommand{\title}[1]{\gdef\thetitle{#1}}
+\newcommand{\germantitle}[1]{\gdef\thegermantitle{#1}}
+\newcommand{\thesistype}[1]{\gdef\thethesistype{#1}}
+\newcommand{\thesiscite}[1]{\gdef\thethesiscite{#1}}
+\newcommand{\birthday}[1]{\gdef\thebirthday{#1}}
+\newcommand{\birthplace}[1]{\gdef\thebirthplace{#1}}
+\newcommand{\thesisstart}[1]{\gdef\thethesisstart{#1}}
+\newcommand{\thesisend}[1]{\gdef\thethesisend{#1}}
+\newcommand{\advisors}[1]{\gdef\theadvisors{#1}}
+\newcommand{\dean}[1]{\gdef\thedean{#1}}
 % -----------------------------------------------------------------------------
 
 % -----------------------------------------------------------------------------
