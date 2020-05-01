@@ -148,6 +148,9 @@
 }
 \RequirePackage{hyphenat}
 
+% With old TeXLive versions, more than 16 files are opened concurrently. Thus, work around that restriction.
+\RequirePackage{morewrites}
+
 % Graphics insertion and filetypes' order of precedence
 \ifPDFTeX
 \RequirePackage[pdftex]{graphicx}
