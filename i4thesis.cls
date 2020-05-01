@@ -174,12 +174,10 @@
                 breaklinks=true]{hyperref}
 
 % Captions
-% automatically loads hypcap
-% manually loading hypcap breaks hyperref targets for listings
 \RequirePackage[font=small, labelfont=bf, labelsep=endash, margin=1cm, hypcap]{caption}
 
 % Subfigures
-\RequirePackage{subcaption}
+\RequirePackage[margin=1cm,hypcap]{subcaption}
 
 % Citations
 \RequirePackage[backend=biber,style=alphabetic]{biblatex}
