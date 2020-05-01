@@ -187,7 +187,7 @@
 % The "SI" and "num" commands for typesetting units
 %\RequirePackage[sepfour=true,tophrase=\dots,per=slash,obeyall]{siunitx}
 %\RequirePackage[range-phrase={\dots\,},per-mode=symbol,detect-all,load-configurations=binary,forbid-literal-units]{siunitx}
-\RequirePackage[range-phrase={\dots\,},per-mode=symbol,detect-all,binary-units]{siunitx}
+\RequirePackage[range-phrase={\dots\,},per-mode=fraction,detect-all,binary-units,separate-uncertainty=true,multi-part-units=single,group-separator={,},group-minimum-digits=5]{siunitx}
 \@ifpackagelater{siunitx}{2021-04-09}{%
   % from the siunitx 3 manual
   \RequirePackage{collcell}
