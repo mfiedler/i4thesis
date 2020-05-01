@@ -3,6 +3,7 @@ thesisPDF:
   script:
     - make
   artifacts:
+    when: always
     paths:
       - thesis.pdf
       - thesis.log
@@ -23,8 +24,10 @@ thesisPDF:
     - cat /etc/os-release 
     - make
   artifacts:
+    when: always
     paths:
       - thesis.pdf
+      - thesis.log
 
 # Latest Ubuntu LTS Release
 ubuntuLatest:
