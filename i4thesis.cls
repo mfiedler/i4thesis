@@ -34,6 +34,11 @@
 \setboolean{earlydraft}{false}
 \DeclareOption{earlydraft}{\setboolean{earlydraft}{true}}
 
+% [externalize] - Leverage TikZ's externalization for reusing figures and plots. However, rebuilds must be triggered manually by deleting the generated files.
+\newboolean{externalize}
+\setboolean{externalize}{false}
+\DeclareOption{externalize}{\setboolean{externalize}{true}}
+
 % [watermark] - Print current time/date at bottom of each page
 \newboolean{watermark}
 \setboolean{watermark}{false}
@@ -293,15 +298,14 @@
 % Sans Serif Font for tikzpictures
 \tikzset{every picture/.append style={font=\sffamily}}
 
+\usetikzlibrary{external}
+
 \ifthenelse{\boolean{gnuplot}}{
 \RequirePackage{pgf}
 \RequirePackage{pgfplots}
 \RequirePackage{pgfplotstable}
 \pgfplotsset{compat=newest}
 \RequirePackage{gnuplot/gnuplot-lua-tikz}
-\usetikzlibrary{external}
-\tikzexternalize[prefix=generated/]
-\tikzset{external/export=false}
 % reduce distance between float and description
 %\renewcommand{\floatpagefraction}{.97}
 %\addtolength{\abovecaptionskip}{-.9em}
@@ -319,6 +323,11 @@
 \addtolength{\topsep}{-2ex}
 }{}
 
+\ifthenelse{\boolean{externalize}}{
+	\tikzset{external/export=true}
+}{
+	\tikzset{external/export=false}
+}
 
 % This removes the auto anchor feature, when an explicit anchor is given
 \tikzset{anchor/.append code={\let\tikz@auto@anchor\relax\let\tikz@compute@direction\pgfutil@gobble}}
@@ -613,15 +622,19 @@
 % -----------------------------------------------------------------------------
 \ifthenelse{\boolean{germanthesis}}{
 	\RequirePackage[colorinlistoftodos, textwidth=2.8cm, shadow, ngerman]{todonotes}
-	
 	\@todonotes@SetTodoListName{Offene Punkte}
-	
 }{
 	\RequirePackage[colorinlistoftodos, textwidth=3.0cm, shadow]{todonotes}
 }
+
+% Disable TikZ's externalization for TODOs and FIXMEs
+\ifthenelse{\boolean{externalize}}{
+	\renewcommand{\todo}[2][]{\tikzexternaldisable\@todo[#1]{#2}\tikzexternalenable}
+}{}
+
 \newcounter{TODOCOUNT}
-\newcommand{\TODO}[1]{\vspace{0.5em}\todo[inline, color=orange]{#1}\stepcounter{TODOCOUNT}}
-\newcommand{\FIXME}[1]{\todo[size=\small, color=red]{#1}\stepcounter{TODOCOUNT}}
+\newcommand{\TODO}[1]{\vspace{0.5em}{\todo[inline, color=orange]{#1}\stepcounter{TODOCOUNT}}}
+\newcommand{\FIXME}[1]{{\todo[size=\small, color=red]{#1}\stepcounter{TODOCOUNT}}}
 \AtEndDocument{
 	\ifnum\value{TODOCOUNT}>0
 		%\cleardoublepage
@@ -646,8 +659,13 @@
 
 \pagenumbering{alph}
 
-% Output cover page
-\makecoverpage
+% Output cover page (which is incompatible with TikZ's externalization)
+\ifthenelse{\boolean{externalize}}{
+	\tikzexternaldisable
+	\makecoverpage
+}{
+	\makecoverpage
+}
 
 % Title pages use single line spacing, no parindent and no parskips
 \begin{singlespace}
