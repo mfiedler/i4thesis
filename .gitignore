@@ -1,6 +1,7 @@
 # auxiliary files for LaTeX
 *.aux
 *.bbl
+*.bcf
 *.blg
 *.fdb_latexmk
 *.fls
