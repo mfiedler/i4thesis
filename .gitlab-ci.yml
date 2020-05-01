@@ -5,6 +5,7 @@ thesisPDF:
   artifacts:
     paths:
       - thesis.pdf
+      - thesis.log
 
 
 # Testweise mit den gängen Distributionen bauen um Inkompatibilitäten schnell
