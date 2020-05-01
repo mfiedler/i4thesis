@@ -181,6 +181,7 @@
 
 % Citations
 \RequirePackage[backend=biber,style=alphabetic]{biblatex}
+\setcounter{biburlnumpenalty}{7000}% allow linebreaks after numbers (needed for URLs containing git hashes)
 \defbibheading{bibliography}[\refname]{\chapter*{#1}\chaptermark{#1}}
 
 % The "SI" and "num" commands for typesetting units
