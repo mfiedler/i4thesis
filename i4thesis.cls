@@ -597,11 +597,9 @@
 \ifthenelse{\boolean{earlydraft}}{
 	\RequirePackage[]{tocbibind}
 	\renewcommand{\lstlistoflistings}{\begingroup\tocfile{\lstlistlistingname}{lol}\endgroup}
-	\newcommand{\mymakeglossarytocentry}{\addcontentsline{toc}{chapter}{\glossarytitlename}}
 	\newcommand{\mymaketodotocentry}{\todototoc}
 }{
 	\RequirePackage[nottoc,notlot,notlof]{tocbibind}
-	\newcommand{\mymakeglossarytocentry}{}
 	\newcommand{\mymaketodotocentry}{}
 }
 
