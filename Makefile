@@ -7,10 +7,10 @@ TXSCWLPATH = ~/.config/texstudio/completion/user
 
 all: $(PDFFILE)
 
+# Options defined in ./.latexmkrc are used here, if you require --shell-escape or want to use another TeX-Engine,
+# please see the comments there.
 $(PDFFILE): $(TEXFILE) $(DEPFILES)
-	latexmk -pdf -pdflatex="pdflatex -interaction=nonstopmode" $(TEXFILE)
-# for gnuplot support: latexmk -pdf -pdflatex="pdflatex -interaction=nonstopmode --shell-escape" $(TEXFILE)
-# For LuaTex: latexmk -pdf -pdflatex="lualatex -interaction=nonstopmode" $(TEXFILE)
+	latexmk $(TEXFILE)
 
 $(TXSCWLPATH)/%: %
 	ln -s $(abspath $^) $@
@@ -19,8 +19,7 @@ $(TXSCWLPATH)/%: %
 txs-autocompletion: $(TXSCWLPATH)/i4thesis.cwl $(TXSCWLPATH)/i4coverpage.cwl
 
 clean:
-	latexmk -CA
-	rm -f $(TEXFILE:.tex=.synctex.gz) $(TEXFILE:.tex=.bbl) $(TEXFILE:.tex=.tdo) $(TEXFILE:.tex=.loa) $(TEXFILE:.tex=.lol) $(TEXFILE:.tex=.run.xml) $(TEXFILE:.tex=-blx.bib)
+	latexmk -C
 	rm -f generated/* plots/*.tex
 
 mrproper: clean

@@ -1,0 +1,26 @@
+# auxiliary files for LaTeX
+*.aux
+*.bbl
+*.bcf
+*.blg
+*.fdb_latexmk
+*.fls
+*.loa
+*.lof
+*.log
+*.lol
+*.lot
+*.out
+*.run.xml
+*.synctex.gz
+*.tdo
+*.toc
+
+# project-specific files
+thesis-blx.bib
+generated/*
+plots/*.tex
+
+# auxiliary files for JabRef
+*.bak
+*.sav

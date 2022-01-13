@@ -34,6 +34,11 @@
 \setboolean{earlydraft}{false}
 \DeclareOption{earlydraft}{\setboolean{earlydraft}{true}}
 
+% [externalize] - Leverage TikZ's externalization for reusing figures and plots. However, rebuilds must be triggered manually by deleting the generated files.
+\newboolean{externalize}
+\setboolean{externalize}{false}
+\DeclareOption{externalize}{\setboolean{externalize}{true}}
+
 % [watermark] - Print current time/date at bottom of each page
 \newboolean{watermark}
 \setboolean{watermark}{false}
@@ -143,6 +148,9 @@
 }
 \RequirePackage{hyphenat}
 
+% With old TeXLive versions, more than 16 files are opened concurrently. Thus, work around that restriction.
+\RequirePackage{morewrites}
+
 % Graphics insertion and filetypes' order of precedence
 \ifPDFTeX
 \RequirePackage[pdftex]{graphicx}
@@ -172,23 +180,22 @@
                 colorlinks=false,
                 pdfdisplaydoctitle=true,
                 breaklinks=true]{hyperref}
-% Link to beginning of floats
-\RequirePackage[all]{hypcap}
 
 % Captions
-\RequirePackage[font=small, labelfont=bf, labelsep=endash, margin=1cm]{caption}
+\RequirePackage[font=small, labelfont=bf, labelsep=endash, margin=1cm, hypcap]{caption}
 
 % Subfigures
-\RequirePackage{subcaption}
+\RequirePackage[margin=1cm,hypcap]{subcaption}
 
 % Citations
-\RequirePackage[backend=bibtex,style=alphabetic]{biblatex}
+\RequirePackage[backend=biber,style=alphabetic]{biblatex}
+\setcounter{biburlnumpenalty}{7000}% allow linebreaks after numbers (needed for URLs containing git hashes)
 \defbibheading{bibliography}[\refname]{\chapter*{#1}\chaptermark{#1}}
 
 % The "SI" and "num" commands for typesetting units
 %\RequirePackage[sepfour=true,tophrase=\dots,per=slash,obeyall]{siunitx}
 %\RequirePackage[range-phrase={\dots\,},per-mode=symbol,detect-all,load-configurations=binary,forbid-literal-units]{siunitx}
-\RequirePackage[range-phrase={\dots\,},per-mode=symbol,detect-all,binary-units]{siunitx}
+\RequirePackage[range-phrase={\dots\,},per-mode=fraction,detect-all,binary-units,separate-uncertainty=true,multi-part-units=single,group-separator={,},group-minimum-digits=5]{siunitx}
 \@ifpackagelater{siunitx}{2021-04-09}{%
   % from the siunitx 3 manual
   \RequirePackage{collcell}
@@ -257,12 +264,12 @@
 }{
   \RequirePackage[german,american]{isodate}
   \newcommand{\thedate}{
-    \makeatletter
+    
     \def\iso@languagename{german}%
     \dategerman%
     \today
     \def\iso@languagename{american}%
-    \makeatother
+    
   }
   \newcommand{\listoftitlename}{Lists}
   \newcommand{\glossarytitlename}{List of Acronyms}
@@ -294,15 +301,14 @@
 % Sans Serif Font for tikzpictures
 \tikzset{every picture/.append style={font=\sffamily}}
 
+\usetikzlibrary{external}
+
 \ifthenelse{\boolean{gnuplot}}{
 \RequirePackage{pgf}
 \RequirePackage{pgfplots}
 \RequirePackage{pgfplotstable}
 \pgfplotsset{compat=newest}
 \RequirePackage{gnuplot/gnuplot-lua-tikz}
-\usetikzlibrary{external}
-\tikzexternalize[prefix=generated/]
-\tikzset{external/export=false}
 % reduce distance between float and description
 %\renewcommand{\floatpagefraction}{.97}
 %\addtolength{\abovecaptionskip}{-.9em}
@@ -320,6 +326,11 @@
 \addtolength{\topsep}{-2ex}
 }{}
 
+\ifthenelse{\boolean{externalize}}{
+	\tikzset{external/export=true}
+}{
+	\tikzset{external/export=false}
+}
 
 % This removes the auto anchor feature, when an explicit anchor is given
 \tikzset{anchor/.append code={\let\tikz@auto@anchor\relax\let\tikz@compute@direction\pgfutil@gobble}}
@@ -363,6 +374,7 @@
 \def\@fs@mid{\kern2pt\hrule\relax\vspace\abovecaptionskip\relax}%
 \let\@fs@iftopcapt\iffalse%
 }
+
 \floatstyle{plain}
 \restylefloat{algorithm}
 \ifthenelse{\boolean{germanthesis}}{
@@ -477,7 +489,6 @@
   \RequirePackage{calc}
   \RequirePackage{textcase}
   \newlength{\@chapterwidth}
-
   \DeclareRobustCommand{\spacedallcaps}[1]{\textls[160]{\MakeTextUppercase{#1}}}
 
   \titleformat{\chapter}[display]%
@@ -512,25 +523,6 @@
 	\setcounter{secnumdepth}{3}
 }
 
-% I4 Cover Page 
-\RequirePackage{i4coverpage}
-% -----------------------------------------------------------------------------
-
-
-% -----------------------------------------------------------------------------
-% Commands for setting author, title, ... 
-% -----------------------------------------------------------------------------
-\renewcommand{\author}[1]{\gdef\theauthor{#1}}
-\renewcommand{\title}[1]{\gdef\thetitle{#1}}
-\newcommand{\germantitle}[1]{\gdef\thegermantitle{#1}}
-\newcommand{\thesistype}[1]{\gdef\thethesistype{#1}}
-\newcommand{\thesiscite}[1]{\gdef\thethesiscite{#1}}
-\newcommand{\birthday}[1]{\gdef\thebirthday{#1}}
-\newcommand{\birthplace}[1]{\gdef\thebirthplace{#1}}
-\newcommand{\thesisstart}[1]{\gdef\thethesisstart{#1}}
-\newcommand{\thesisend}[1]{\gdef\thethesisend{#1}}
-\newcommand{\advisors}[1]{\gdef\theadvisors{#1}}
-\newcommand{\dean}[1]{\gdef\thedean{#1}}
 % -----------------------------------------------------------------------------
 
 
@@ -539,18 +531,23 @@
 % -----------------------------------------------------------------------------
 \RequirePackage{listing} % For \listoflistings
 \RequirePackage[savemem]{listings}
+
+
 \ifthenelse{\boolean{germanthesis}}{
-    \gdef\listlistingname{Quellcodeverzeichnis}
-	\renewcommand{\lstlistlistingname}{Quellcodeverzeichnis}
+	\newcommand{\listoflistingscaption}{Quellcodeverzeichnis}
 }{
-    \gdef\listlistingname{List of Listings}
-	\renewcommand{\lstlistlistingname}{List of Listings}
+	\newcommand{\listoflistingscaption}{List of Listings}
 }
+
+\RequirePackage{newfloat}
+\SetupFloatingEnvironment{listing}{listname=\listoflistingscaption}
 
 % leave a gap between entries in list of listings that belong to different
 % chapters so it is consistent with list of tables and figures
 \let\Chapter\chapter
 \def\chapter{\addtocontents{lol}{\protect\addvspace{10pt}}\Chapter}
+
+\captionsetup[listing]{aboveskip=0pt}
 
 \lstset{
 	language=C,
@@ -586,8 +583,25 @@
 	float,
 	language=XML
 }
-% -----------------------------------------------------------------------------
 
+% I4 Cover Page (uses csquotes, should be loaded after minted, which loads lineno, which wants to be loaded after csquotes)
+\RequirePackage{i4coverpage}
+
+% -----------------------------------------------------------------------------
+% Commands for setting author, title, ... 
+% -----------------------------------------------------------------------------
+\renewcommand{\author}[1]{\gdef\theauthor{#1}}
+\renewcommand{\title}[1]{\gdef\thetitle{#1}}
+\newcommand{\germantitle}[1]{\gdef\thegermantitle{#1}}
+\newcommand{\thesistype}[1]{\gdef\thethesistype{#1}}
+\newcommand{\thesiscite}[1]{\gdef\thethesiscite{#1}}
+\newcommand{\birthday}[1]{\gdef\thebirthday{#1}}
+\newcommand{\birthplace}[1]{\gdef\thebirthplace{#1}}
+\newcommand{\thesisstart}[1]{\gdef\thethesisstart{#1}}
+\newcommand{\thesisend}[1]{\gdef\thethesisend{#1}}
+\newcommand{\advisors}[1]{\gdef\theadvisors{#1}}
+\newcommand{\dean}[1]{\gdef\thedean{#1}}
+% -----------------------------------------------------------------------------
 
 % -----------------------------------------------------------------------------
 % TOCs
@@ -597,11 +611,9 @@
 \ifthenelse{\boolean{earlydraft}}{
 	\RequirePackage[]{tocbibind}
 	\renewcommand{\lstlistoflistings}{\begingroup\tocfile{\lstlistlistingname}{lol}\endgroup}
-	\newcommand{\mymakeglossarytocentry}{\addcontentsline{toc}{chapter}{\glossarytitlename}}
 	\newcommand{\mymaketodotocentry}{\todototoc}
 }{
 	\RequirePackage[nottoc,notlot,notlof]{tocbibind}
-	\newcommand{\mymakeglossarytocentry}{}
 	\newcommand{\mymaketodotocentry}{}
 }
 
@@ -613,15 +625,19 @@
 % -----------------------------------------------------------------------------
 \ifthenelse{\boolean{germanthesis}}{
 	\RequirePackage[colorinlistoftodos, textwidth=2.8cm, shadow, ngerman]{todonotes}
-	\makeatletter
 	\@todonotes@SetTodoListName{Offene Punkte}
-	\makeatother
 }{
 	\RequirePackage[colorinlistoftodos, textwidth=3.0cm, shadow]{todonotes}
 }
+
+% Disable TikZ's externalization for TODOs and FIXMEs
+\ifthenelse{\boolean{externalize}}{
+	\renewcommand{\todo}[2][]{\tikzexternaldisable\@todo[#1]{#2}\tikzexternalenable}
+}{}
+
 \newcounter{TODOCOUNT}
-\newcommand{\TODO}[1]{\vspace{0.5em}\todo[inline, color=orange]{#1}\stepcounter{TODOCOUNT}}
-\newcommand{\FIXME}[1]{\todo[size=\small, color=red]{#1}\stepcounter{TODOCOUNT}}
+\newcommand{\TODO}[1]{\vspace{0.5em}{\todo[inline, color=orange]{#1}\stepcounter{TODOCOUNT}}}
+\newcommand{\FIXME}[1]{{\todo[size=\small, color=red]{#1}\stepcounter{TODOCOUNT}}}
 \AtEndDocument{
 	\ifnum\value{TODOCOUNT}>0
 		%\cleardoublepage
@@ -646,8 +662,13 @@
 
 \pagenumbering{alph}
 
-% Output cover page
-\makecoverpage
+% Output cover page (which is incompatible with TikZ's externalization)
+\ifthenelse{\boolean{externalize}}{
+	\tikzexternaldisable
+	\makecoverpage
+}{
+	\makecoverpage
+}
 
 % Title pages use single line spacing, no parindent and no parskips
 \begin{singlespace}
@@ -820,10 +841,10 @@ Erlangen, \thedate
 % https://tex.stackexchange.com/questions/299969/titlesec-loss-of-section-numbering-with-the-new-update-2016-03-15
 %
 \RequirePackage{etoolbox}
-\makeatletter
+
 \patchcmd{\ttlh@hang}{\parindent\z@}{\parindent\z@\leavevmode}{}{}
 \patchcmd{\ttlh@hang}{\noindent}{}{}{}
-\makeatother
+
 
 % -----------------------------------------------------------------------------
 
