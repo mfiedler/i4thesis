@@ -1,6 +1,7 @@
-# For gnuplot support: $pdflatex="pdflatex -interaction=nonstopmode -shell-escape"
-# For LuaTex: $pdflatex="lualatex -interaction=nonstopmode"
-$pdflatex = 'pdflatex -synctex=1 -interaction=nonstopmode -halt-on-error -shell-escape';
+# For gnuplot support: $pdflatex="pdflatex -synctex=1 -interaction=nonstopmode -halt-on-error -shell-escape";
+# For LuaTex: $pdflatex="lualatex -synctex=1 -interaction=nonstopmode -halt-on-error";
+# You can mix lualatex, synctex and shellescape if you wish
+$pdflatex = 'pdflatex -synctex=1 -interaction=nonstopmode -halt-on-error';
 $pdf_mode=1;
 $postscript_mode=0;
 $dvi_mode=0;
