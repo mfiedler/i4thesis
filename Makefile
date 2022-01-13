@@ -8,7 +8,7 @@ TXSCWLPATH = ~/.config/texstudio/completion/user
 all: $(PDFFILE)
 
 # Options defined in ./.latexmkrc are used here, if you require --shell-escape or want to use another TeX-Engine,
-# please see the comments there there.
+# please see the comments there.
 $(PDFFILE): $(TEXFILE) $(DEPFILES)
 	latexmk $(TEXFILE)
 
