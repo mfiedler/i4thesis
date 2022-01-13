@@ -52,11 +52,27 @@ Figure captions should always be placed at the bottom of the figure.
 	\label{fig:setups12}%
 \end{figure}
 
-\ifthenelse{\boolean{gnuplot}}{
 \subsection{Plotting}
-You can make \LaTeX{} generate plots automatically using \texttt{gnuplot}.
+
+Plotting is an important part of every evaluation.
+In general, the user has to major options there: Either using an external application to generate plots, or to use an integrated, \LaTeX{}-native plotting solution.
+
+
+Popular external applications include gnuplot\footnote{\url{http://www.gnuplot.info/}}, matplotlib\footnote{\url{https://matplotlib.org/stable/}} or ggplot2\footnote{\url{https://ggplot2.tidyverse.org/}}.
+If using one of those, please make sure to export the plots as either \TeX{} (if available) or at least vector graphics such as PDF, and do not use bitmap graphics.
+
+You can also make \LaTeX{} generate plots automatically using \texttt{gnuplot}.
 Just put your data into a \texttt{csv} file in the \texttt{plots} subdirectory and create a \texttt{gnuplot} script ending in \texttt{.gplt}.
-Follow the example from \texttt{plots/ass\_granularity.gplt} shown in Figure \ref{fig:AssGran}.
+Follow the example from \texttt{plots/ass\_granularity.gplt}\ifthenelse{\boolean{gnuplot}}{ shown in Figure \ref{fig:AssGran}}{}.
+To enable this feature, two steps are required
+
+\begin{enumerate}
+	\item Enable shell-escape in the file \verb!.latexmkrc!. See the comments there for details
+	\item Pass the gnuplot option to the \verb!i4thesis! documentclass in \verb!thesis.tex!, i.e.\\\verb!\documentclass[...,gnuplot]{i4thesis}!
+	\item See the example code below (hidden as long as gnuplot is disabled)
+\end{enumerate}
+
+\ifthenelse{\boolean{gnuplot}}{
 \begin{figure}
   \centering
   \vspace{\gnuplotpreskip}
@@ -69,9 +85,9 @@ Follow the example from \texttt{plots/ass\_granularity.gplt} shown in Figure \re
   \label{fig:AssGran}
   \vspace{\gnuplotundercaptionskip}
 \end{figure}
-
-
 }{}
+
+Finally, the pgfplots\footnote{\url{http://pgfplots.sourceforge.net/gallery.html}} package constitutes a fully \LaTeX{}-native solution to plot measurement data, and thus does not require external applications or the shell-escape feature. As this plotting happens in the context of your current document, it ensures a consistent styling and allows you to directly annotate datapoints by using Ti\textit{k}Z. However, due to the limits of the \TeX{}-engine, it might struggle with particularly large datasets.
 
 \subsection{Tables}
 
