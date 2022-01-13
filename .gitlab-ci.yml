@@ -43,6 +43,8 @@ archlinuxRolling:
         pacman -S --noconfirm      \
         texlive-most               \
         biber
+    # Ensure that biber is in PATH from now on
+    - source /etc/profile
 
 # Latest Ubuntu LTS Release
 ubuntuLatest:
