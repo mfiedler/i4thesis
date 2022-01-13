@@ -41,7 +41,7 @@ archlinuxRolling:
       pacman -Syy &&               \
         pacman -Syu --noconfirm && \
         pacman -S --noconfirm      \
-        texlive-full               \
+        texlive-most               \
         biber
 
 # Latest Ubuntu LTS Release
