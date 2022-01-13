@@ -189,6 +189,12 @@
 %\RequirePackage[sepfour=true,tophrase=\dots,per=slash,obeyall]{siunitx}
 %\RequirePackage[range-phrase={\dots\,},per-mode=symbol,detect-all,load-configurations=binary,forbid-literal-units]{siunitx}
 \RequirePackage[range-phrase={\dots\,},per-mode=symbol,detect-all,binary-units]{siunitx}
+\@ifpackagelater{siunitx}{2021-04-09}{%
+  % from the siunitx 3 manual
+  \RequirePackage{collcell}
+  \newcolumntype{s}{>{\collectcell\unit}c<{\endcollectcell}}
+}{}
+
 \DeclareSIUnit\byte{Byte}
 \DeclareSIUnit\decibelm{dBm}
 \DeclareSIUnit\mph{mph}
