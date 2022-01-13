@@ -749,7 +749,7 @@ Friedrich-Alexander-Universität Erlangen-Nürnberg\\[0.2\baselineskip]
 
 \begin{tabular}{>{\raggedleft}p{6cm}p{9cm}}
 Betreuer:	\theadvisors
-	\\
+~ & ~\\
 Betreuender Hochschullehrer: & \textbf{Prof.~Dr.-Ing.~habil.~Wolfgang~Schröder-Preikschat}\\
 
 ~ & ~\\
