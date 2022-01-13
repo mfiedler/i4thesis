@@ -11,23 +11,38 @@ thesisPDF:
 
 # Testweise mit den gängen Distributionen bauen um Inkompatibilitäten schnell
 # erkennen zu können (wird nur im master-Zweig von i4/tex/thesis ausgeführt)
-
-# Generische Regel für auf Debian basierende Distributionen
-.debianoide:
+.buildthesis:
   only:
     - master@i4/tex/i4thesis
-  before_script:
-    - ln -fs /usr/share/zoneinfo/Europe/Berlin /etc/localtime
-    - export DEBIAN_FRONTEND=noninteractive
-    - apt-get update -qq && apt-get install -y -qq make texlive-full latexmk biber
   script:
-    - cat /etc/os-release 
+    - cat /etc/os-release
     - make
   artifacts:
     when: always
     paths:
       - thesis.pdf
       - thesis.log
+
+# Generische Regel für auf Debian basierende Distributionen
+.debianoide:
+  extends:
+    - .buildthesis
+  before_script:
+    - ln -fs /usr/share/zoneinfo/Europe/Berlin /etc/localtime
+    - export DEBIAN_FRONTEND=noninteractive
+    - apt-get update -qq && apt-get install -y -qq make texlive-full latexmk biber
+
+archlinuxRolling:
+  image: archlinux:base-devel
+  extends:
+    - .buildthesis
+  before_script:
+    - >
+      pacman -Syy &&               \
+        pacman -Syu --noconfirm && \
+        pacman -S --noconfirm      \
+        texlive-full               \
+        biber
 
 # Latest Ubuntu LTS Release
 ubuntuLatest:
