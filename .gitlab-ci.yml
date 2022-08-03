@@ -42,7 +42,8 @@ archlinuxRolling:
         pacman -Syu --noconfirm && \
         pacman -S --noconfirm      \
         texlive-most               \
-        biber
+        biber                      \
+        perl-clone
     # Ensure that biber is in PATH from now on
     - source /etc/profile
 
