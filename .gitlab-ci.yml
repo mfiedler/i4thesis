@@ -1,5 +1,5 @@
 thesisPDF:
-  image: tianon/latex
+  image: texlive/texlive
   script:
     - make
   artifacts:
