@@ -41,7 +41,8 @@ archlinuxRolling:
       pacman -Syy &&               \
         pacman -Syu --noconfirm && \
         pacman -S --noconfirm      \
-        texlive-most               \
+        texlive-meta               \
+        texlive-lang               \
         biber                      \
         perl-clone
     # Ensure that biber is in PATH from now on
@@ -49,6 +50,7 @@ archlinuxRolling:
     # The hooks do not reliably trigger as chroot is not supported in gitlabci
     # Use subshells to scope the cd /
     - (cd / && /usr/share/libalpm/scripts/mktexlsr)
+    - (cd / && /usr/share/libalpm/scripts/texlive-language)
     - (cd / && /usr/share/libalpm/scripts/texlive-fmtutil)
     - (cd / && /usr/share/libalpm/scripts/texlive-updmap)
 
