@@ -71,7 +71,7 @@
 \newcommand{\makecoverpage}{%
   \ifthenelse{\boolean{@isevencoverpage@moderntitle}}{%
     \makecoverpage@modern{
-		Lehrstuhl für Informatik 4 $\cdot$ Verteilte Systeme und Betriebssysteme
+		Lehrstuhl für Informatik 4 $\cdot$ Systemsoftware
 	}{%
 		\theauthor%
 	}{%
@@ -88,7 +88,7 @@
 	}{%
 			Friedrich-Alexander-Universität Erlangen-Nürnberg\\%
 			Department~Informatik\\%
-			Verteilte Systeme und Betriebssysteme\\%
+			Systemsoftware\\%
 			\vspace{.5em}%
 			Martensstr.~1 $\cdot$ 91058 Erlangen $\cdot$ Germany%
 	}{%
@@ -103,7 +103,7 @@
       % Department Informatik
       Lehrstuhl für Informatik 4%
     }{%
-      Verteilte Systeme und Betriebssysteme%
+      Systemsoftware
     }{%
       \coverpagetextsmall{\nohyphens{\theauthor}}%
       \coverpagetextlarge{\nohyphens{\thetitle}}%
@@ -117,7 +117,7 @@
     }{%
       Friedrich-Alexander-Universität Erlangen-Nürnberg\\%
       Department~Informatik\\%
-      Verteilte Systeme und Betriebssysteme\\%
+      Systemsoftware\\%
       \vspace{0.5em}%
       Martensstr.~1 $\cdot$ 91058 Erlangen $\cdot$ Germany%
     }{%
@@ -207,7 +207,7 @@
 			font=\sffamily\bfseries\color{white}\@isevencoverpage@authorsize] (authortext) {\nohyphens{#2}};
 
 	% Untertiteltext
-	\node[anchor = north west] 
+	\node[anchor = north west]
 		(subtitletext) at (\absenderRaum + \textMargin, \pageHeight - 2 * \logoRaum - \textMargin)
 		[align = left, font = \sffamily\color{white}\@isevencoverpage@subtitlesize] {#4};
 

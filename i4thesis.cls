@@ -91,7 +91,7 @@
 \LoadClass[a4paper,10pt,onecolumn,twoside,openright]{report}
 \RequirePackage[a4paper,textwidth=410pt,textheight=598pt,bindingoffset=0cm,marginparwidth=3cm,hmarginratio=1:1,vmarginratio=1:1]{geometry}
 }
-\setlength\parskip{0pt} 
+\setlength\parskip{0pt}
 
 % 150 percent line spacing
 \RequirePackage{setspace}
@@ -124,7 +124,7 @@
 }{
 \RequirePackage[bitstream-charter,sfscaled=false]{mathdesign}  % RM: Bitstream Charter
 }
-\RequirePackage{helvet}  % SF: Helvetica 
+\RequirePackage{helvet}  % SF: Helvetica
 \RequirePackage[scaled=1.04,varqu,varl]{inconsolata} % TT: Inconsolata
 \linespread{1.04}
 % TODO: nicer math font?
@@ -264,12 +264,12 @@
 }{
   \RequirePackage[german,american]{isodate}
   \newcommand{\thedate}{
-    
+
     \def\iso@languagename{german}%
     \dategerman%
     \today
     \def\iso@languagename{american}%
-    
+
   }
   \newcommand{\listoftitlename}{Lists}
   \newcommand{\glossarytitlename}{List of Acronyms}
@@ -512,9 +512,9 @@
 \titlespacing*{\chapter}{0pt}{50pt}{40pt}
 \titlespacing*{\section}{0pt}{3.5ex plus 1ex minus .2ex}{2.3ex plus .2ex}
 \titlespacing*{\subsection}{0pt}{3.25ex plus 1ex minus .2ex}{1.5ex plus .2ex}
-\titlespacing*{\subsubsection}{0pt}{3.25ex plus 1ex minus .2ex}{1.5ex plus .2ex} 
-\titlespacing*{\paragraph}{0pt}{3.25ex plus 1ex minus .2ex}{1.5ex plus .2ex} 
-\titlespacing*{\subparagraph}{0pt}{3.25ex plus 1ex minus .2ex}{1.5ex plus .2ex} 
+\titlespacing*{\subsubsection}{0pt}{3.25ex plus 1ex minus .2ex}{1.5ex plus .2ex}
+\titlespacing*{\paragraph}{0pt}{3.25ex plus 1ex minus .2ex}{1.5ex plus .2ex}
+\titlespacing*{\subparagraph}{0pt}{3.25ex plus 1ex minus .2ex}{1.5ex plus .2ex}
 \ifthenelse{\boolean{earlydraft}}{
 	\setcounter{tocdepth}{3}
 	\setcounter{secnumdepth}{3}
@@ -588,7 +588,7 @@
 \RequirePackage{i4coverpage}
 
 % -----------------------------------------------------------------------------
-% Commands for setting author, title, ... 
+% Commands for setting author, title, ...
 % -----------------------------------------------------------------------------
 \renewcommand{\author}[1]{\gdef\theauthor{#1}}
 \renewcommand{\title}[1]{\gdef\thetitle{#1}}
@@ -672,8 +672,8 @@
 
 % Title pages use single line spacing, no parindent and no parskips
 \begin{singlespace}
-\setlength\parindent{0pt} 
-\setlength\parskip{0pt} 
+\setlength\parindent{0pt}
+\setlength\parskip{0pt}
 
 %
 % Now output the title page
@@ -735,7 +735,7 @@ Universität Erlangen-Nürnberg\\[2\baselineskip]
 Tag der Einreichung: & \textbf{\thethesisstart} \\
 Tag der Promotion:   & \textbf{\thethesisend}   \\
 Dekan:               & \textbf{\thedean}        \\
-Berichterstatter:    \theadvisors            
+Berichterstatter:    \theadvisors
 \end{tabular}
 \end{onehalfspacing}
 
@@ -768,7 +768,7 @@ in \thebirthplace\\[2\baselineskip]
 angefertigt am\\[2\baselineskip]
 
 \textbf{Lehrstuhl für Informatik 4\\[0.2\baselineskip]
-Verteilte Systeme und Betriebssysteme\\[1.2\baselineskip]
+Systemsoftware\\[1.2\baselineskip]
 Department Informatik\\[0.2\baselineskip]
 Friedrich-Alexander-Universität Erlangen-Nürnberg\\[0.2\baselineskip]
 }
