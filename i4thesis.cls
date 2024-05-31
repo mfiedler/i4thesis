@@ -594,6 +594,7 @@
 \renewcommand{\title}[1]{\gdef\thetitle{#1}}
 \newcommand{\germantitle}[1]{\gdef\thegermantitle{#1}}
 \newcommand{\thesistype}[1]{\gdef\thethesistype{#1}}
+\newcommand{\thesisid}[1]{\gdef\thethesisid{#1}}
 \newcommand{\thesiscite}[1]{\gdef\thethesiscite{#1}}
 \newcommand{\birthday}[1]{\gdef\thebirthday{#1}}
 \newcommand{\birthplace}[1]{\gdef\thebirthplace{#1}}
